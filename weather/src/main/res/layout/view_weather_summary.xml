@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/weather_summary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weather_warm">
+    <TextView android:id="@+id/weather_summary_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_to_display"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        android:paddingBottom="16dp"
+        android:layout_centerInParent="true"/>
+    <TextView android:id="@+id/weather_summary_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_to_display"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:paddingBottom="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/weather_summary_temp"/>
+
+</RelativeLayout>
