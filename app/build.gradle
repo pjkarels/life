@@ -4,6 +4,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+// Use `com.nerdery.umbrella.darkskyapikey` in gradle.properties or as a command line
+// parameter or `DARK_SKY_API_KEY` as a System Environment variable to provide dark
+// sky api key to this project
+ext.darkSkyApiKey = project.hasProperty('com.nerdery.umbrella.darkskyapikey') ?
+        project.getProperty('com.nerdery.umbrella.darkskyapikey') :
+        System.getenv('DARK_SKY_API_KEY') ?: ''
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -12,6 +19,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "API_KEY", "\"$project.darkSkyApiKey\""
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -24,8 +34,6 @@ android {
 
 
     dynamicFeatures = [":weather"]
-
-
 }
 
 ext {
