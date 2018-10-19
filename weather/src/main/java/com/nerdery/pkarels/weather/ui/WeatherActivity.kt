@@ -1,8 +1,8 @@
-package com.nerdery.pkarels.weather
+package com.nerdery.pkarels.weather.ui
 
 import android.os.Bundle
 import com.nerdery.pkarels.life.BaseSplitActivity
-import com.nerdery.pkarels.weather.ui.weather.WeatherFragment
+import com.nerdery.pkarels.weather.R
 
 class WeatherActivity : BaseSplitActivity() {
 

@@ -2,8 +2,8 @@ package com.nerdery.pkarels.weather.data.api
 
 
 import com.nerdery.pkarels.life.BuildConfig
-import com.nerdery.pkarels.weather.data.model.TempUnit
-import com.nerdery.pkarels.weather.data.model.WeatherResponse
+import com.nerdery.pkarels.weather.model.TempUnit
+import com.nerdery.pkarels.weather.model.WeatherResponse
 
 import io.reactivex.Single
 import retrofit2.Call

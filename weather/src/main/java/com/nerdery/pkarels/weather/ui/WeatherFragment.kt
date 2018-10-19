@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.ui.weather
+package com.nerdery.pkarels.weather.ui
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nerdery.pkarels.weather.R
+import com.nerdery.pkarels.weather.model.WeatherViewModel
 
 class WeatherFragment : Fragment() {
 

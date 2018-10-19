@@ -19,7 +19,7 @@ import com.nerdery.pkarels.life.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val TAG = "DynamicFeatures"
-private const val weatherPackageName = "com.nerdery.pkarels.weather"
+private const val weatherPackageName = "com.nerdery.pkarels.weather.ui"
 
 class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInteractionListener {
 

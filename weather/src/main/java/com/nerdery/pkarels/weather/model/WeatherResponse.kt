@@ -15,4 +15,6 @@ class WeatherResponse(@field:SerializedName("currently")
                        * Hourly Response model that contains list of ForecastConditions
                        * @return HourlyResponse
                        */
-                      val hourly: HourlyResponse)
+                      val hourly: HourlyResponse) {
+    lateinit var forecasts: DayForecasts
+}
