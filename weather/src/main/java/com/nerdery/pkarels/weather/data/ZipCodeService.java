@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.nerdery.pkarels.weather.R;
+import com.nerdery.pkarels.life.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
