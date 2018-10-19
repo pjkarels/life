@@ -70,8 +70,8 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
     api "com.android.volley:volley:$VOLLEY_VERSION"
 
-    api "io.reactivex.rxjava2:rxjava:2.1.8"
-    api "io.reactivex.rxjava2:rxandroid:2.0.1"
+    api "io.reactivex.rxjava2:rxjava:2.2.2"
+    api "io.reactivex.rxjava2:rxandroid:2.1.0"
 
     api "com.jakewharton.byteunits:byteunits:0.9.1"
     api "com.jakewharton.threetenabp:threetenabp:1.0.5"
