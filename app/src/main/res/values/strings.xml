@@ -16,11 +16,6 @@
     <string name="finding_location">Finding Location&#8230;</string>
     <string name="location_display">%s, %s</string>
 
-    <string name="weather_forecast_title_today">Today</string>
-    <string name="weather_forecast_title_tomorrow">Tomorrow</string>
-    <string name="degrees">%s\u2109</string>
-    <string name="weather_forecast_service_error_message">An error occurred. Please try again later.</string>
-
     <!-- Strings related to Settings -->
     <string-array name="list_pref_units">
         <item>Fahrenheit</item>

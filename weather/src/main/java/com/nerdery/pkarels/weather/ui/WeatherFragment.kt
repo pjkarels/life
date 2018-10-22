@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,21 +57,20 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
         val units = sharedPreferences.getString("pref_title_units", getString(com.nerdery.pkarels.life.R.string.pref_units_default))
         val tempUnit = if (units == getString(com.nerdery.pkarels.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
         viewModel.init(WeatherRepository(activity?.application as LifeApplication), location, tempUnit)
-        viewModel.weatherResponse.observe(this, Observer { t ->
+        viewModel.weatherResponseContainer.observe(this, Observer { t ->
             t as WeatherResponse
             val summaryView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
             summaryView?.text = t.currentForecast.summary
             val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
             tempView?.text = t.currentForecast.getTemp()
+
+            val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
+            recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity as AppCompatActivity?, viewModel, t.forecasts)
         })
     }
 

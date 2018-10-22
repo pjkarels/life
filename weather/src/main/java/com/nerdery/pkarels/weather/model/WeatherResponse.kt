@@ -16,5 +16,5 @@ class WeatherResponse(@field:SerializedName("currently")
                        * @return HourlyResponse
                        */
                       val hourly: HourlyResponse) {
-    lateinit var forecasts: DayForecasts
+    lateinit var forecasts: List<DayForecasts>
 }

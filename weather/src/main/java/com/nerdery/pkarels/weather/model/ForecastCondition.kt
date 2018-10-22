@@ -6,10 +6,10 @@ import java.util.*
 /**
  * Specific weather condition for time and location
  */
-data class ForecastCondition(internal var summary: String,
-                             internal var icon: String,
+data class ForecastCondition(val summary: String,
+                             val icon: String,
                              @field:SerializedName("temperature")
-                        internal var temp: Double,
+                             internal var temp: Double,
                              private var time: Long) {
 
     var isLowest: Boolean = false
