@@ -72,7 +72,7 @@ class ZipCodeService {
 
         private fun readJsonFile(inputStream: InputStream): String? {
             val outputStream = ByteArrayOutputStream()
-            val buffer = ByteArray(1024)
+            val buffer = ByteArray(BUFFER_SIZE)
             var length = inputStream.read(buffer)
             try {
                 while (length != -1) {

@@ -15,7 +15,7 @@ import retrofit2.Response
 class WeatherRepository(application: LifeApplication) {
     private var weatherService: WeatherService =
             Util.provideRetrofit(application.apiServicesProvider.client,
-                    "https://api.darksky.net/",
+                    "https://api.darksky.net",
                     Util.provideGson()).create(WeatherService::class.java)
 
     fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): LiveData<WeatherResponse> {
