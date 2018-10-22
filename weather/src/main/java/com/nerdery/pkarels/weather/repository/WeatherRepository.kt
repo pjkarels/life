@@ -6,9 +6,13 @@ import android.graphics.BitmapFactory
 import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
+import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.data.IconService
 import com.nerdery.pkarels.weather.data.WeatherService
-import com.nerdery.pkarels.weather.model.*
+import com.nerdery.pkarels.weather.model.DayForecasts
+import com.nerdery.pkarels.weather.model.ForecastCondition
+import com.nerdery.pkarels.weather.model.TempUnit
+import com.nerdery.pkarels.weather.model.WeatherResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,24 +44,23 @@ class WeatherRepository(application: LifeApplication) {
         return data
     }
 
-    fun getIcon(image: String, isSelected: Boolean): IconResponse {
-        val iconResponse = IconResponse()
+    fun getIcon(image: String, isSelected: Boolean, listener: IconLoadedListener) {
         val selected = if (isSelected) "-selected" else ""
 
         iconService.getIconCall(image, selected).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val byteArray = response.body()?.bytes()
                 if (byteArray != null) {
-                    iconResponse.image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                    val icon = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                    listener.onIconLoaded(icon)
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 call.cancel()
+                listener.onIconLoadedError(t.localizedMessage)
             }
         })
-
-        return iconResponse
     }
 
     private fun processWeather(response: WeatherResponse?): WeatherResponse? {

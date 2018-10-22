@@ -1,6 +1,7 @@
 package com.nerdery.pkarels.weather.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +10,15 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nerdery.pkarels.weather.R;
+import com.nerdery.pkarels.weather.data.IconLoadedListener;
 import com.nerdery.pkarels.weather.model.DayForecasts;
 import com.nerdery.pkarels.weather.model.ForecastCondition;
 import com.nerdery.pkarels.weather.model.WeatherViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -76,8 +81,10 @@ public class SimpleItemRecyclerViewAdapter
             View forecastView = inflater.inflate(R.layout.view_weather_cell_item, forecastsView, false);
             TextView timeView = forecastView.findViewById(R.id.weather_cell_time);
             ImageView iconView = forecastView.findViewById(R.id.weather_cell_condition);
-            getIcon(condition, iconView);
             TextView tempView = forecastView.findViewById(R.id.weather_cell_temp);
+
+            getIcon(condition, iconView);
+
             timeView.setText(dateFormatter.format(condition.getTime()));
             tempView.setText(forecastsView.getContext().getString(R.string.degrees, String.valueOf(condition.getTemp())));
             if (condition.isHightest()) {
@@ -92,7 +99,19 @@ public class SimpleItemRecyclerViewAdapter
     }
 
     private void getIcon(ForecastCondition condition, final ImageView iconView) {
-        iconView.setImageBitmap(viewModel.getIcon(condition.getIcon(), condition.isHightest() || condition.isLowest()).getImage());
+        viewModel.getIcon(condition.getIcon(), condition.isHightest() || condition.isLowest(), new IconLoadedListener() {
+
+            @Override
+            public void onIconLoaded(@NotNull Bitmap image) {
+                iconView.setImageBitmap(image);
+
+            }
+
+            @Override
+            public void onIconLoadedError(@NotNull String message) {
+                Toast.makeText(iconView.getContext(), "Error loading image", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

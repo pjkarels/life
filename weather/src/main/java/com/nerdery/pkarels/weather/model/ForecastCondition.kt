@@ -1,5 +1,6 @@
 package com.nerdery.pkarels.weather.model
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -14,6 +15,7 @@ data class ForecastCondition(val summary: String,
 
     var isLowest: Boolean = false
     var isHightest: Boolean = false
+    var image: Bitmap? = null
     fun getTemp(): String {
         return temp.toString()
     }

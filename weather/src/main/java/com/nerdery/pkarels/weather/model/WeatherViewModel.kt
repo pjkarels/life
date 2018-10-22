@@ -3,7 +3,9 @@ package com.nerdery.pkarels.weather.model
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import android.graphics.Bitmap
 import com.nerdery.pkarels.life.ZipCodeService
+import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.repository.WeatherRepository
 import java.util.*
 
@@ -30,7 +32,15 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         return repository.getWeather(location, tempUnit)
     }
 
-    fun getIcon(image: String, highlighted: Boolean = false): IconResponse {
-        return repository.getIcon(image, highlighted)
+    fun getIcon(image: String, highlighted: Boolean, listener: IconLoadedListener) {
+        repository.getIcon(image, highlighted, object : IconLoadedListener {
+            override fun onIconLoaded(image: Bitmap) {
+                listener.onIconLoaded(image)
+            }
+
+            override fun onIconLoadedError(message: String) {
+                listener.onIconLoadedError(message)
+            }
+        })
     }
 }
