@@ -10,18 +10,20 @@ import java.util.*
 
 class Util {
 
-    fun provideRetrofit(client: OkHttpClient, baseUrl: String, gson: Gson): Retrofit {
-        return Retrofit.Builder()
-                .client(client)
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-    }
+    companion object {
+        fun provideRetrofit(client: OkHttpClient, baseUrl: String, gson: Gson): Retrofit {
+            return Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build()
+        }
 
-    fun provideGson(): Gson {
-        val gson = GsonBuilder()
-        gson.registerTypeAdapter(Date::class.java, DateDeserializer())
-        return gson.create()
+        fun provideGson(): Gson {
+            val gson = GsonBuilder()
+            gson.registerTypeAdapter(Date::class.java, DateDeserializer())
+            return gson.create()
+        }
     }
 }

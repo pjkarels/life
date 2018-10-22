@@ -1,5 +1,6 @@
 package com.nerdery.pkarels.weather.ui
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,11 +10,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.model.TempUnit
+import com.nerdery.pkarels.weather.model.WeatherResponse
 import com.nerdery.pkarels.weather.model.WeatherViewModel
+import com.nerdery.pkarels.weather.repository.WeatherRepository
 
 class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     companion object {
@@ -58,14 +63,14 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         val units = sharedPreferences.getString("pref_title_units", getString(com.nerdery.pkarels.life.R.string.pref_units_default))
         val tempUnit = if (units == getString(com.nerdery.pkarels.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
-        viewModel.init(location, tempUnit)
-//        viewModel.weatherResponse.observe(this, Observer {
-//            t ->  t as WeatherResponse
-//            val summaryView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
-//            summaryView?.text = t.currentForecast.summary
-//            val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
-//            tempView?.text = t.currentForecast.getTemp()
-//        })
+        viewModel.init(WeatherRepository(activity?.application as LifeApplication), location, tempUnit)
+        viewModel.weatherResponse.observe(this, Observer { t ->
+            t as WeatherResponse
+            val summaryView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
+            summaryView?.text = t.currentForecast.summary
+            val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
+            tempView?.text = t.currentForecast.getTemp()
+        })
     }
 
     override fun onLocationNotFound() {
