@@ -19,7 +19,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
      * @param rootKey            If non-null, this preference fragment should be rooted at the
      * [PreferenceScreen] with this key.
      */
-    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
         val pref = preferenceManager.findPreference("pref_title_units")
         val listPreference = pref as ListPreference

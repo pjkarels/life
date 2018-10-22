@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.data.api
+package com.nerdery.pkarels.weather.data
 
 
 import com.nerdery.pkarels.life.BuildConfig

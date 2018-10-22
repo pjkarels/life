@@ -6,14 +6,17 @@ import java.util.*
 /**
  * Specific weather condition for time and location
  */
-class ForecastCondition(internal var summary: String,
-                        internal var icon: String,
-                        @field:SerializedName("temperature")
+data class ForecastCondition(internal var summary: String,
+                             internal var icon: String,
+                             @field:SerializedName("temperature")
                         internal var temp: Double,
-                        private var time: Long) {
+                             private var time: Long) {
 
     var isLowest: Boolean = false
     var isHightest: Boolean = false
+    fun getTemp(): String {
+        return temp.toString()
+    }
     /**
      * Time/Date of Forecast Condition
      * @return Date

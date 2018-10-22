@@ -152,6 +152,7 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
         manager = SplitInstallManagerFactory.create(this)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+//        TODO("Update to use Google Location Services")
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val zipPref = sharedPreferences.getString("pref_title_zip", "")
         if (zipPref == "") run { startActivity(Intent(this, SettingsActivity::class.java)) }

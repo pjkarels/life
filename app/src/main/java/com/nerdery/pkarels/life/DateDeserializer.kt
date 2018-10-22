@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.data
+package com.nerdery.pkarels.life
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

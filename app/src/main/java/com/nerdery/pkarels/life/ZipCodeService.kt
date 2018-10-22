@@ -1,10 +1,9 @@
-package com.nerdery.pkarels.weather.data
+package com.nerdery.pkarels.life
 
 import android.content.Context
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import com.nerdery.pkarels.life.R
 
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -73,11 +72,12 @@ class ZipCodeService {
 
         private fun readJsonFile(inputStream: InputStream): String? {
             val outputStream = ByteArrayOutputStream()
-            val buffer = ByteArray(BUFFER_SIZE)
-            val length = inputStream.read(buffer)
+            val buffer = ByteArray(1024)
+            var length = inputStream.read(buffer)
             try {
                 while (length != -1) {
                     outputStream.write(buffer, 0, length)
+                    length = inputStream.read(buffer)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -85,6 +85,29 @@ class ZipCodeService {
             }
 
             return outputStream.toString()
+        }
+
+        fun getLatLong(context: Context, zipCode: String): Boolean {
+            var isFound = false
+            var zipLong: Long = 0
+            try {
+                zipLong = java.lang.Long.valueOf(zipCode)
+            } catch (e: NumberFormatException) {
+                isFound = false
+            }
+
+            val stream = context.resources.openRawResource(R.raw.zipcodes)
+            val jsonString = readJsonFile(stream)
+            val gson = Gson()
+            val locations = gson.fromJson(jsonString, Array<ZipLocation>::class.java)
+            lateinit var foundLocation: ZipLocation
+            for (location in locations) {
+                if (location.zipCode == zipLong) {
+                    isFound = true
+                    break // no reason to keep looping
+                }
+            }
+            return isFound
         }
     }
 
