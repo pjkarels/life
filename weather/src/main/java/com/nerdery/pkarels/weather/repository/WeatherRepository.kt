@@ -99,7 +99,7 @@ class WeatherRepository(application: LifeApplication) {
                     if (condition.temp == lowest)
                         condition.isLowest = true
                     if (condition.temp == highest)
-                        condition.isHightest = true
+                        condition.isHighest = true
                 }
             }
             response.forecasts = forecasts

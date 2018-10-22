@@ -66,7 +66,7 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
 
             timeView.text = dateFormatter.format(condition.getTime())
             tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemp())
-            if (condition.isHightest) {
+            if (condition.isHighest) {
                 timeView.setTextColor(context.resources.getColor(R.color.weather_warm))
                 tempView.setTextColor(context.resources.getColor(R.color.weather_warm))
             } else if (condition.isLowest) {
@@ -78,7 +78,7 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
     }
 
     private fun getIcon(condition: ForecastCondition, iconView: ImageView) {
-        viewModel.getIcon(condition.icon, condition.isHightest || condition.isLowest, object : IconLoadedListener {
+        viewModel.getIcon(condition.icon, condition.isHighest || condition.isLowest, object : IconLoadedListener {
 
             override fun onIconLoaded(image: Bitmap) {
                 iconView.setImageBitmap(image)
