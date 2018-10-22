@@ -12,6 +12,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface WeatherService {
+    companion object {
+        const val URL = "https://api.darksky.net"
+    }
 
     @GET("/forecast/" + BuildConfig.API_KEY + "/{latitude},{longitude}")
     fun getWeather(@Path("latitude") latitude: Double,
