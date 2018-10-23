@@ -17,6 +17,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 import java.util.*
 
 class WeatherRepository(application: LifeApplication) {
@@ -53,12 +54,14 @@ class WeatherRepository(application: LifeApplication) {
                 if (byteArray != null) {
                     val icon = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                     listener.onIconLoaded(icon)
+                } else {
+                    onFailure(call, IOException("Unable to load icon"))
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                call.cancel()
                 listener.onIconLoadedError(t.localizedMessage)
+                call.cancel()
             }
         })
     }

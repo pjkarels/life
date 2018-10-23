@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.data.IconLoadedListener
@@ -60,9 +59,10 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
             val forecastView = inflater.inflate(R.layout.view_weather_cell_item, forecastsView, false)
             val timeView = forecastView.findViewById<TextView>(R.id.weather_cell_time)
             val iconView = forecastView.findViewById<ImageView>(R.id.weather_cell_condition)
+            val conditionDescriptionView = forecastView.findViewById<TextView>(R.id.weather_cell_condition_text)
             val tempView = forecastView.findViewById<TextView>(R.id.weather_cell_temp)
 
-            getIcon(condition, iconView)
+            getIcon(condition, iconView, conditionDescriptionView)
 
             timeView.text = dateFormatter.format(condition.getTimeAsDate())
             tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemp())
@@ -73,26 +73,29 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
                 timeView.setTextColor(context.resources.getColor(R.color.weather_cool))
                 tempView.setTextColor(context.resources.getColor(R.color.weather_cool))
             }
+            conditionDescriptionView.text = condition.summary
             forecastsView.addView(forecastView)
         }
     }
 
-    private fun getIcon(condition: ForecastCondition, iconView: ImageView) {
+    private fun getIcon(condition: ForecastCondition, iconView: ImageView, conditionView: TextView) {
         viewModel.getIcon(condition.icon, condition.isHighest || condition.isLowest, object : IconLoadedListener {
 
             override fun onIconLoaded(image: Bitmap) {
                 iconView.setImageBitmap(image)
-
+                iconView.visibility = View.VISIBLE
+                conditionView.visibility = View.GONE
             }
 
             override fun onIconLoadedError(message: String) {
-                Toast.makeText(iconView.context, "Error loading image", Toast.LENGTH_LONG).show()
+                conditionView.visibility = View.VISIBLE
+                iconView.visibility = View.GONE
             }
         })
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleView: TextView = view.findViewById(R.id.weather_card_title)
-        var forecastsView: GridLayout = view.findViewById(R.id.weather_card_forecasts)
+        val forecastsView: GridLayout = view.findViewById(R.id.weather_card_forecasts)
     }
 }
