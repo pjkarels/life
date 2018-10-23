@@ -67,7 +67,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
             val summaryView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
             summaryView?.text = t.currentForecast.summary
             val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
-            tempView?.text = t.currentForecast.getTemp()
+            tempView?.text = activity?.getString(R.string.degrees, t.currentForecast.getTemp())
 
             val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
             recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity as AppCompatActivity, viewModel, t.forecasts)

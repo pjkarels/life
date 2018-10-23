@@ -1,6 +1,7 @@
 package com.nerdery.pkarels.weather.model
 
 import com.google.gson.annotations.SerializedName
+import com.nerdery.pkarels.life.Util
 import java.util.*
 
 /**
@@ -15,7 +16,7 @@ data class ForecastCondition(val summary: String,
     var isLowest: Boolean = false
     var isHighest: Boolean = false
     fun getTemp(): String {
-        return temp.toString()
+        return Util.round(temp, 1)
     }
 
     fun getTime(): Long {
