@@ -10,18 +10,23 @@ data class ForecastCondition(val summary: String,
                              val icon: String,
                              @field:SerializedName("temperature")
                              internal var temp: Double,
-                             private var time: Long) {
+                             private val time: Long) {
 
     var isLowest: Boolean = false
     var isHighest: Boolean = false
     fun getTemp(): String {
         return temp.toString()
     }
+
+    fun getTime(): Long {
+        return time * 1000
+    }
+
     /**
      * Time/Date of Forecast Condition
      * @return Date
      */
-    fun getTime(): Date {
-        return Date(time)
+    fun getTimeAsDate(): Date {
+        return Date(time * 1000)
     }
 }

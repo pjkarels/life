@@ -10,6 +10,7 @@ import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.model.DayForecasts
@@ -22,8 +23,6 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
                                                          private val viewModel: WeatherViewModel,
                                                          private val mValues: List<DayForecasts>) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
-    private val dateFormatter = SimpleDateFormat("h:mm a", Locale.getDefault())
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.view_forecase_list_item, parent, false)
@@ -31,8 +30,7 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val dateFormat = "EEE, MMM d"
-        val dateFormatter = SimpleDateFormat(dateFormat, Locale.getDefault())
+        val dateFormatter = SimpleDateFormat(Util.DATE_PATTERN_DAY_DATE, Locale.getDefault())
         val forecasts = mValues[position]
 
         val title: String
@@ -41,7 +39,7 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
         } else if (position == 1) {
             title = mParentActivity.getString(R.string.weather_forecast_title_tomorrow)
         } else {
-            title = dateFormatter.format(forecasts.conditions[0].getTime())
+            title = dateFormatter.format(forecasts.conditions[0].getTimeAsDate())
         }
         holder.titleView.text = title
         fillGrid(holder.forecastsView, forecasts.conditions)
@@ -54,6 +52,8 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
     }
 
     private fun fillGrid(forecastsView: GridLayout, hours: List<ForecastCondition>) {
+        val dateFormatter = SimpleDateFormat(Util.DATE_PATTERN_HOUR_AM_PM, Locale.getDefault())
+
         val context = forecastsView.context
         val inflater = LayoutInflater.from(context)
         for (condition in hours) {
@@ -64,7 +64,7 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
 
             getIcon(condition, iconView)
 
-            timeView.text = dateFormatter.format(condition.getTime())
+            timeView.text = dateFormatter.format(condition.getTimeAsDate())
             tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemp())
             if (condition.isHighest) {
                 timeView.setTextColor(context.resources.getColor(R.color.weather_warm))

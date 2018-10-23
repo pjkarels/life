@@ -11,6 +11,10 @@ import java.util.*
 class Util {
 
     companion object {
+
+        const val DATE_PATTERN_DAY_DATE = "EEE, MMM d"
+        const val DATE_PATTERN_HOUR_AM_PM = "h:mm a"
+
         fun provideRetrofit(client: OkHttpClient, baseUrl: String, gson: Gson): Retrofit {
             return Retrofit.Builder()
                     .client(client)

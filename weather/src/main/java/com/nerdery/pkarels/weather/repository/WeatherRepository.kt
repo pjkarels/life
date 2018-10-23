@@ -63,6 +63,9 @@ class WeatherRepository(application: LifeApplication) {
         })
     }
 
+    /***
+     * Divides hourly forecast list into daily forecast blocks
+     */
     private fun processWeather(response: WeatherResponse?): WeatherResponse? {
         if (response != null) {
             val forecasts = ArrayList<DayForecasts>()
@@ -70,17 +73,17 @@ class WeatherRepository(application: LifeApplication) {
             val hours = hourlyResponse.hours
             var conditions: MutableList<ForecastCondition> = ArrayList()
             var dayForecast = DayForecasts()
-            val now = Calendar.getInstance()
-            now.time = hours.get(0).getTime()
+            val now = Calendar.getInstance(Locale.US)
             for (condition in hours) {
-                val hourCondition = Calendar.getInstance()
-                hourCondition.time = condition.getTime()
-                if (hourCondition.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)) {
+                val then = Calendar.getInstance(Locale.US)
+                then.timeInMillis = condition.getTime()
+                if (then.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)) {
                     conditions.add(condition)
                 } else {
                     now.add(Calendar.DAY_OF_MONTH, 1) // increment one day
                     dayForecast.conditions = conditions
                     forecasts.add(dayForecast)
+
                     dayForecast = DayForecasts()
                     conditions = ArrayList()
                     conditions.add(condition)
