@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.graphics.Bitmap
+import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.repository.WeatherRepository

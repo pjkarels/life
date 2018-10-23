@@ -1,6 +1,7 @@
 package com.nerdery.pkarels.weather.model
 
 import com.google.gson.annotations.SerializedName
+import com.nerdery.pkarels.life.TempUnit
 
 /**
  * Response from DarkSky weather requests in [com.nerdery.pkarels.weather.data.api.WeatherService]
@@ -17,4 +18,5 @@ class WeatherResponse(@field:SerializedName("currently")
                        */
                       val hourly: HourlyResponse) {
     lateinit var forecasts: List<DayForecasts>
+    lateinit var tempUnit: TempUnit
 }

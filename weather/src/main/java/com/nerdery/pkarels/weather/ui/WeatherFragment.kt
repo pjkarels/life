@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -14,10 +15,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.nerdery.pkarels.life.LifeApplication
+import com.nerdery.pkarels.life.TempUnit
+import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
-import com.nerdery.pkarels.weather.model.TempUnit
 import com.nerdery.pkarels.weather.model.WeatherResponse
 import com.nerdery.pkarels.weather.model.WeatherViewModel
 import com.nerdery.pkarels.weather.repository.WeatherRepository
@@ -58,16 +60,32 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     }
 
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
+        val activity = this.activity as AppCompatActivity
+        activity.supportActionBar?.title = getString(com.nerdery.pkarels.life.R.string.location_display, location.city, location.state)
         val units = sharedPreferences.getString("pref_title_units", getString(com.nerdery.pkarels.life.R.string.pref_units_default))
         val tempUnit = if (units == getString(com.nerdery.pkarels.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
         viewModel.init(WeatherRepository(activity?.application as LifeApplication), location, tempUnit)
         viewModel.weatherResponseContainer.observe(this, Observer { t ->
             t as WeatherResponse
-            val summaryView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
-            summaryView?.text = t.currentForecast.summary
+            val summaryView = view?.findViewById<View>(R.id.weather_summary)
+            if (summaryView != null) {
+                if (Util.isWarmWeather(t.currentForecast.temp, tempUnit)) {
+                    activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(
+                            activity.resources.getColor(R.color.weather_warm)
+                    ))
+                    summaryView.setBackgroundColor(activity.resources.getColor(R.color.weather_warm))
+                } else {
+                    activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(
+                            activity.resources.getColor(R.color.weather_cool)
+                    ))
+                    summaryView.setBackgroundColor(activity.resources.getColor(R.color.weather_cool))
+                }
+            }
+            val conditionView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
+            conditionView?.text = t.currentForecast.summary
             val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
-            tempView?.text = activity?.getString(R.string.degrees, t.currentForecast.getTemp())
+            tempView?.text = activity.getString(R.string.degrees, t.currentForecast.getTemp())
 
             val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
             recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity as AppCompatActivity, viewModel, t.forecasts)

@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.model
+package com.nerdery.pkarels.life
 
 import com.google.gson.annotations.SerializedName
 

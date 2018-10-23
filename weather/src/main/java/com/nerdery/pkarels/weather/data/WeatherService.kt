@@ -2,7 +2,7 @@ package com.nerdery.pkarels.weather.data
 
 
 import com.nerdery.pkarels.life.BuildConfig
-import com.nerdery.pkarels.weather.model.TempUnit
+import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.weather.model.WeatherResponse
 
 import io.reactivex.Single

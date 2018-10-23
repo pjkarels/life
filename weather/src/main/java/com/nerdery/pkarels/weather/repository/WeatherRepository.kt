@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.graphics.BitmapFactory
 import com.nerdery.pkarels.life.LifeApplication
+import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.weather.data.IconLoadedListener
@@ -11,7 +12,6 @@ import com.nerdery.pkarels.weather.data.IconService
 import com.nerdery.pkarels.weather.data.WeatherService
 import com.nerdery.pkarels.weather.model.DayForecasts
 import com.nerdery.pkarels.weather.model.ForecastCondition
-import com.nerdery.pkarels.weather.model.TempUnit
 import com.nerdery.pkarels.weather.model.WeatherResponse
 import okhttp3.ResponseBody
 import retrofit2.Call

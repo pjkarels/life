@@ -10,6 +10,9 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
 
+private const val TEMP_THRESHOLD_FAHRENHEIT = 70.0f
+private const val TEMP_THRESHOLD_CELCIUS = 40.0f
+
 class Util {
 
     companion object {
@@ -53,6 +56,11 @@ class Util {
             decimalFormat.applyPattern(pattern)
 
             return decimalFormat.format(input)
+        }
+
+        fun isWarmWeather(temp: Double, tempUnit: TempUnit): Boolean {
+            return (tempUnit == TempUnit.FAHRENHEIT && temp >= TEMP_THRESHOLD_FAHRENHEIT
+                    || tempUnit == TempUnit.CELSIUS && temp >= TEMP_THRESHOLD_CELCIUS)
         }
     }
 }
