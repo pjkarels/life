@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.nerdery.pkarels.life.BaseSplitActivity
+import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
 
@@ -28,7 +29,12 @@ class WeatherActivity : BaseSplitActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == com.nerdery.pkarels.life.R.id.action_settings) {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            val destinationIntent = Intent(this, SettingsActivity::class.java)
+            Bundle().apply {
+                putString(Util.INTENT_BUNDLE_PARENT_NAME, SettingsActivity::class.java.name)
+                destinationIntent.putExtras(this)
+            }
+            startActivity(destinationIntent)
             return true
         }
 
