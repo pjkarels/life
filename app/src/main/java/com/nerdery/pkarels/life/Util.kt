@@ -22,6 +22,9 @@ class Util {
         const val DATE_PATTERN_DAY_DATE = "EEE, MMM d"
         const val DATE_PATTERN_HOUR_AM_PM = "h:mm a"
 
+        const val TEMP_UNIT_ABBR_FAHRENHEIT = "F"
+        const val TEMP_UNIT_ABBR_CELCIUS = "C"
+
         fun provideRetrofit(client: OkHttpClient, baseUrl: String, gson: Gson): Retrofit {
             return Retrofit.Builder()
                     .client(client)
