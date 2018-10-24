@@ -1,7 +1,7 @@
 <resources>
     <string name="weather_forecast_title_today">Today</string>
     <string name="weather_forecast_title_tomorrow">Tomorrow</string>
-    <string name="degrees">%s\u2109</string>
+    <string name="degrees">%s\u00B0%s</string>
     <string name="weather_forecast_service_error_message">An error occurred. Please try again later.</string>
     <string name="weather_cell_condition_description">Forecast condition icon</string>
 </resources>

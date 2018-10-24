@@ -19,8 +19,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.*
+import javax.inject.Singleton
 
+@Singleton
 class WeatherRepository(application: LifeApplication) {
+    private lateinit var tempUnit: TempUnit
+
     private var weatherService: WeatherService =
             Util.provideRetrofit(application.apiServicesProvider.client,
                     WeatherService.URL,
@@ -31,6 +35,7 @@ class WeatherRepository(application: LifeApplication) {
                     Util.provideGson()).create(IconService::class.java)
 
     fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): LiveData<WeatherResponse> {
+        this.tempUnit = tempUnit
         val data = MutableLiveData<WeatherResponse>()
         weatherService.getWeatherCall(zipLocation.latitude, zipLocation.longitude, tempUnit).enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
@@ -78,6 +83,7 @@ class WeatherRepository(application: LifeApplication) {
             var dayForecast = DayForecasts()
             val now = Calendar.getInstance(Locale.US)
             for (condition in hours) {
+                condition.tempUnit = this.tempUnit
                 val then = Calendar.getInstance(Locale.US)
                 then.timeInMillis = condition.getTime()
                 if (then.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)) {

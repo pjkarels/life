@@ -17,18 +17,13 @@
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.View" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nerdery.pkarels.life.ui.MainActivity" />
-        </activity>
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

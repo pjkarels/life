@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.nerdery.pkarels.life.R
+import com.nerdery.pkarels.life.Util
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val TAG = "DynamicFeatures"
@@ -171,7 +172,12 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            val destinationIntent = Intent(this, SettingsActivity::class.java)
+            Bundle().apply {
+                putString(Util.INTENT_BUNDLE_PARENT_NAME, SettingsActivity::class.java.name)
+                destinationIntent.putExtras(this)
+            }
+            startActivity(destinationIntent)
             return true
         }
 

@@ -53,10 +53,8 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         super.onResume()
 
         val zipPref = sharedPreferences.getString("pref_title_zip", "")
-        val context = activity?.applicationContext
-        if (context != null) {
-            ZipCodeService.getLatLongByZip(context.applicationContext, zipPref, this)
-        }
+        val context = activity as AppCompatActivity
+        ZipCodeService.getLatLongByZip(context.applicationContext, zipPref, this)
     }
 
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
@@ -85,10 +83,15 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
             val conditionView = view?.findViewById<TextView>(R.id.weather_summary_conditions)
             conditionView?.text = t.currentForecast.summary
             val tempView = view?.findViewById<TextView>(R.id.weather_summary_temp)
-            tempView?.text = activity.getString(R.string.degrees, t.currentForecast.getTemp())
+            tempView?.text = activity.getString(R.string.degrees, t.currentForecast.getTemp(),
+                    if (tempUnit == TempUnit.FAHRENHEIT) {
+                        Util.TEMP_UNIT_ABBR_FAHRENHEIT
+                    } else {
+                        Util.TEMP_UNIT_ABBR_CELCIUS
+                    })
 
             val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
-            recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity as AppCompatActivity, viewModel, t.forecasts)
+            recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity, viewModel, t.forecasts)
         })
     }
 

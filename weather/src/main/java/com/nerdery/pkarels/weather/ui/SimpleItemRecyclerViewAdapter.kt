@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.data.IconLoadedListener
@@ -65,7 +66,12 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
             getIcon(condition, iconView, conditionDescriptionView)
 
             timeView.text = dateFormatter.format(condition.getTimeAsDate())
-            tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemp())
+            tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemp(),
+                    if (condition.tempUnit == TempUnit.FAHRENHEIT) {
+                        Util.TEMP_UNIT_ABBR_FAHRENHEIT
+                    } else {
+                        Util.TEMP_UNIT_ABBR_CELCIUS
+                    })
             if (condition.isHighest) {
                 timeView.setTextColor(context.resources.getColor(R.color.weather_warm))
                 tempView.setTextColor(context.resources.getColor(R.color.weather_warm))
