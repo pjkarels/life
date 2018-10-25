@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
@@ -22,7 +21,6 @@ import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.model.WeatherResponse
 import com.nerdery.pkarels.weather.model.WeatherViewModel
-import com.nerdery.pkarels.weather.repository.WeatherRepository
 
 class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     companion object {
@@ -63,7 +61,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         val units = sharedPreferences.getString("pref_title_units", getString(com.nerdery.pkarels.life.R.string.pref_units_default))
         val tempUnit = if (units == getString(com.nerdery.pkarels.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
-        viewModel.init(WeatherRepository(activity?.application as LifeApplication), location, tempUnit)
+        viewModel.init(location, tempUnit)
         viewModel.weatherResponseContainer.observe(this, Observer { t ->
             t as WeatherResponse
             val summaryView = view?.findViewById<View>(R.id.weather_summary)

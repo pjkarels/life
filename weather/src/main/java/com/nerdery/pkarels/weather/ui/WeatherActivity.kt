@@ -13,6 +13,7 @@ class WeatherActivity : BaseSplitActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.weather_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
