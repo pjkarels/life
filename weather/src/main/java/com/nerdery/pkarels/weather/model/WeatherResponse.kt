@@ -2,7 +2,6 @@ package com.nerdery.pkarels.weather.model
 
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.nerdery.pkarels.life.model.ForecastCondition
 
 /**
  * Response from DarkSky weather requests in [com.nerdery.pkarels.weather.data.api.WeatherService]

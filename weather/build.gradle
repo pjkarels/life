@@ -1,6 +1,7 @@
 apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -19,9 +20,16 @@ android {
 
 }
 
+ext {
+    ROOM_VERSION = "1.1.1"
+    DAGGER_VERSION = "2.16"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':app')
+
+    kapt "android.arch.persistence.room:compiler:$ROOM_VERSION"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

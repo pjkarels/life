@@ -11,10 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
-import com.nerdery.pkarels.life.model.ForecastCondition
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.model.DayForecasts
+import com.nerdery.pkarels.weather.model.ForecastCondition
 import com.nerdery.pkarels.weather.model.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.*
