@@ -7,10 +7,10 @@ import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
-import com.nerdery.pkarels.life.data.WeatherDatabase
 import com.nerdery.pkarels.life.entity.CurrentEntity
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.data.IconService
+import com.nerdery.pkarels.weather.data.WeatherDatabase
 import com.nerdery.pkarels.weather.data.WeatherService
 import com.nerdery.pkarels.weather.model.DayForecasts
 import com.nerdery.pkarels.weather.model.ForecastCondition

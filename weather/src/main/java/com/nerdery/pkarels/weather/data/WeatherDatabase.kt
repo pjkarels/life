@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.data
+package com.nerdery.pkarels.weather.data
 
 import android.app.Application
 import android.arch.persistence.room.Database

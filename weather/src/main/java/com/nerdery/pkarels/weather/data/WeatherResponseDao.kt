@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.data
+package com.nerdery.pkarels.weather.data
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
