@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.model
+package com.nerdery.pkarels.life.model
 
 import com.google.gson.annotations.SerializedName
 import com.nerdery.pkarels.life.TempUnit
@@ -8,22 +8,22 @@ import java.util.*
 /**
  * Specific weather condition for time and location
  */
-data class ForecastCondition(val summary: String,
-                             val icon: String,
-                             @field:SerializedName("temperature")
-                             internal var temp: Double,
-                             private val time: Long) {
+class ForecastCondition(val summary: String,
+                        val icon: String,
+                        @field:SerializedName("temperature")
+                        val temp: Double,
+                        private val time: Long) {
 
     var isLowest: Boolean = false
     var isHighest: Boolean = false
 
     var tempUnit = TempUnit.FAHRENHEIT
 
-    fun getTemp(): String {
+    fun getTemperature(): String {
         return Util.round(temp, 1)
     }
 
-    fun getTime(): Long {
+    fun getTimeInMillis(): Long {
         return time * 1000
     }
 

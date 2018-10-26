@@ -1,13 +1,12 @@
 package com.nerdery.pkarels.weather.model
 
-import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.nerdery.pkarels.life.model.ForecastCondition
 
 /**
  * Response from DarkSky weather requests in [com.nerdery.pkarels.weather.data.api.WeatherService]
  */
-@Entity
 class WeatherResponse(@field:SerializedName("currently")
                       /**
                        * Current Weather Condition
@@ -20,6 +19,5 @@ class WeatherResponse(@field:SerializedName("currently")
                        */
                       val hourly: HourlyResponse) {
     @PrimaryKey
-    private var id = 0
     lateinit var forecasts: List<DayForecasts>
 }

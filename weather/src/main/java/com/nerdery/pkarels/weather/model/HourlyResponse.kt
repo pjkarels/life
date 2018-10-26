@@ -1,6 +1,7 @@
 package com.nerdery.pkarels.weather.model
 
 import com.google.gson.annotations.SerializedName
+import com.nerdery.pkarels.life.model.ForecastCondition
 
 class HourlyResponse(hours: List<ForecastCondition>) {
     /**

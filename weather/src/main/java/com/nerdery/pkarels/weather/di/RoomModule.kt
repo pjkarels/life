@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.weather.module
+package com.nerdery.pkarels.weather.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.nerdery.pkarels.weather.data.WeatherDatabase
-import com.nerdery.pkarels.weather.data.WeatherResponseDao
+import com.nerdery.pkarels.life.data.WeatherDatabase
+import com.nerdery.pkarels.life.data.WeatherResponseDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -24,4 +24,10 @@ class RoomModule(application: Application) {
     fun providesWeatherResponseDao(): WeatherResponseDao {
         return weatherDatabase.weatherResponseDao()
     }
+//
+//    @Singleton
+//    @Provides
+//    fun weatherRepository(): WeatherRepository {
+//        return weatherRepository()
+//    }
 }

@@ -4,42 +4,41 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.graphics.Bitmap
+import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.ZipCodeService
+import com.nerdery.pkarels.life.entity.CurrentEntity
 import com.nerdery.pkarels.weather.data.IconLoadedListener
-import com.nerdery.pkarels.weather.module.AppModule
-import com.nerdery.pkarels.weather.module.RoomModule
 import com.nerdery.pkarels.weather.repository.WeatherRepository
 import java.util.*
-import javax.inject.Inject
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
-    init {
-        val weatherComponent = DaggerWeatherComponent.builder()
-                .appModule(AppModule(application))
-                .roomModule(RoomModule(application))
-                .build()
-                .inject(this)
-    }
-
-    @Inject
-    lateinit var repository: WeatherRepository
+    //    init {
+//        val weatherComponent = DaggerWeatherComponent.builder()
+//                .appModule(AppModule(application))
+//                .roomModule(RoomModule(application))
+//                .build()
+//                .inject(this)
+//    }
+//
+    private lateinit var repository: WeatherRepository
     private lateinit var location: ZipCodeService.ZipLocation
     private lateinit var tempUnit: TempUnit
-    lateinit var weatherResponseContainer: LiveData<WeatherResponse>
+    lateinit var weatherResponseContainer: LiveData<CurrentEntity>
 
     private lateinit var dayForecasts: ArrayList<DayForecasts>
 
-    fun init(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit) {
+    fun init(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit, lifeApplication: LifeApplication) {
         this.location = zipLocation
         this.tempUnit = tempUnit
+        repository = WeatherRepository(lifeApplication)
 
         dayForecasts = ArrayList()
 
         weatherResponseContainer = getWeather()
     }
 
-    fun getWeather(): LiveData<WeatherResponse> {
+    fun getWeather(): LiveData<CurrentEntity> {
         return repository.getWeather(location, tempUnit)
     }
 

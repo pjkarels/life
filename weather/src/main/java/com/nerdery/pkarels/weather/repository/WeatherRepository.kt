@@ -1,32 +1,29 @@
 package com.nerdery.pkarels.weather.repository
 
+import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.graphics.BitmapFactory
 import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
+import com.nerdery.pkarels.life.data.WeatherDatabase
+import com.nerdery.pkarels.life.entity.CurrentEntity
+import com.nerdery.pkarels.life.model.ForecastCondition
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.data.IconService
-import com.nerdery.pkarels.weather.data.WeatherResponseDao
 import com.nerdery.pkarels.weather.data.WeatherService
 import com.nerdery.pkarels.weather.model.DayForecasts
-import com.nerdery.pkarels.weather.model.ForecastCondition
 import com.nerdery.pkarels.weather.model.WeatherResponse
+import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.*
-import java.util.concurrent.Executor
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class WeatherRepository @Inject constructor(application: LifeApplication,
-                                            private val weatherResponseDao: WeatherResponseDao,
-                                            private val executor: Executor) {
+class WeatherRepository(application: LifeApplication) {
 
     private lateinit var tempUnit: TempUnit
 
@@ -39,7 +36,10 @@ class WeatherRepository @Inject constructor(application: LifeApplication,
                     IconService.URL,
                     Util.provideGson()).create(IconService::class.java)
 
-    fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): LiveData<WeatherResponse> {
+    private val database: WeatherDatabase = WeatherDatabase.create(application as Application)
+    private val weatherResponseDao = database.weatherResponseDao()
+
+    fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): LiveData<CurrentEntity> {
         this.tempUnit = tempUnit
         refreshWeather(zipLocation, tempUnit)
 
@@ -68,13 +68,23 @@ class WeatherRepository @Inject constructor(application: LifeApplication,
     }
 
     private fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit) {
-        executor.execute {
-            val responseBody = weatherService.getWeatherCall(zipLocation.latitude, zipLocation.longitude, tempUnit).execute().body()
-            if (responseBody != null) {
-                val modifiedResponse = processWeather(responseBody)
-                weatherResponseDao.save(modifiedResponse)
+        weatherService.getWeather(zipLocation.latitude, zipLocation.longitude, tempUnit)
+                .subscribeOn(Schedulers.io())
+                .doOnSuccess { weatherResponse ->
+                    val processedWeather = processWeather(weatherResponse)
+                    // create Entity
+                    val currentEntity = CurrentEntity(zipLocation.zipCode)
+                    weatherResponseDao.save(currentEntity)
             }
-        }
+                .subscribe()
+
+//        executor.execute {
+//            val responseBody = weatherService.getWeatherCall(zipLocation.latitude, zipLocation.longitude, tempUnit).execute().body()
+//            if (responseBody != null) {
+//                val modifiedResponse = processWeather(responseBody)
+//                weatherResponseDao.save(modifiedResponse)
+//            }
+//        }
     }
 
     /***
@@ -90,7 +100,7 @@ class WeatherRepository @Inject constructor(application: LifeApplication,
         for (condition in hours) {
             condition.tempUnit = this.tempUnit
             val then = Calendar.getInstance(Locale.US)
-            then.timeInMillis = condition.getTime()
+            then.timeInMillis = condition.getTimeInMillis()
             if (then.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)) {
                 conditions.add(condition)
             } else {

@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.module
+package com.nerdery.pkarels.weather.di
 
 import com.nerdery.pkarels.weather.model.WeatherViewModel
 import com.nerdery.pkarels.weather.repository.WeatherRepository
