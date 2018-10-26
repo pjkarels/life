@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.entity
+package com.nerdery.pkarels.weather.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

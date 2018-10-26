@@ -7,8 +7,8 @@ import android.graphics.Bitmap
 import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.ZipCodeService
-import com.nerdery.pkarels.life.entity.CurrentEntity
 import com.nerdery.pkarels.weather.data.IconLoadedListener
+import com.nerdery.pkarels.weather.entity.CurrentEntity
 import com.nerdery.pkarels.weather.repository.WeatherRepository
 import java.util.*
 

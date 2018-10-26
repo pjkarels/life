@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.nerdery.pkarels.life.converter.ThreeTenDateTimeConverters
-import com.nerdery.pkarels.life.entity.CurrentEntity
+import com.nerdery.pkarels.weather.entity.CurrentEntity
 
 @Database(entities = [CurrentEntity::class], version = 1)
 @TypeConverters(ThreeTenDateTimeConverters::class)
