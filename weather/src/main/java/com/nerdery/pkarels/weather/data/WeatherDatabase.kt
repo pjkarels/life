@@ -6,9 +6,10 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.nerdery.pkarels.life.converter.ThreeTenDateTimeConverters
-import com.nerdery.pkarels.weather.entity.CurrentEntity
+import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
+import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
 
-@Database(entities = [CurrentEntity::class], version = 1)
+@Database(entities = [CurrentConditionEntity::class, HourlyForecastsEntity::class], version = 1)
 @TypeConverters(ThreeTenDateTimeConverters::class)
 abstract class WeatherDatabase : RoomDatabase() {
     companion object {
@@ -17,5 +18,5 @@ abstract class WeatherDatabase : RoomDatabase() {
                 .build()
     }
 
-    abstract fun weatherResponseDao(): WeatherResponseDao
+    abstract fun weatherResponseDao(): CurrentConditionDao
 }

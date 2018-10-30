@@ -1,7 +1,6 @@
 package com.nerdery.pkarels.weather.repository
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
 import android.graphics.BitmapFactory
 import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
@@ -11,12 +10,16 @@ import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.data.IconService
 import com.nerdery.pkarels.weather.data.WeatherDatabase
 import com.nerdery.pkarels.weather.data.WeatherService
-import com.nerdery.pkarels.weather.entity.CurrentEntity
+import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
+import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
+import com.nerdery.pkarels.weather.entity.WeatherConditionEntity
 import com.nerdery.pkarels.weather.model.DayForecasts
 import com.nerdery.pkarels.weather.model.ForecastCondition
 import com.nerdery.pkarels.weather.model.WeatherResponse
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
+import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,11 +42,9 @@ class WeatherRepository(application: LifeApplication) {
     private val database: WeatherDatabase = WeatherDatabase.create(application as Application)
     private val weatherResponseDao = database.weatherResponseDao()
 
-    fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): LiveData<CurrentEntity> {
+    fun getWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): Single<WeatherResponse> {
         this.tempUnit = tempUnit
-        refreshWeather(zipLocation, tempUnit)
-
-        return weatherResponseDao.load()
+        return refreshWeather(zipLocation, tempUnit)
     }
 
     fun getIcon(image: String, isSelected: Boolean, listener: IconLoadedListener) {
@@ -67,16 +68,37 @@ class WeatherRepository(application: LifeApplication) {
         })
     }
 
-    private fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit) {
-        weatherService.getWeather(zipLocation.latitude, zipLocation.longitude, tempUnit)
+    fun getCurrentConditionsFromDb(zip: Long) = weatherResponseDao.loadCurrentConditions(zip)
+
+    private fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): Single<WeatherResponse> {
+        return weatherService.getWeather(zipLocation.latitude, zipLocation.longitude, tempUnit)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { weatherResponse ->
-                    val processedWeather = processWeather(weatherResponse)
+                    //                    val processedWeather = processWeather(weatherResponse)
+                    val weatherEntity = WeatherConditionEntity(weatherResponse.currentForecast.summary,
+                            weatherResponse.currentForecast.icon,
+                            weatherResponse.currentForecast.temp,
+                            weatherResponse.currentForecast.getTimeAsLocalDateTime())
                     // create Entity
-                    val currentEntity = CurrentEntity(zipLocation.zipCode)
-                    weatherResponseDao.save(currentEntity)
-            }
-                .subscribe()
+                    val currentEntity = CurrentConditionEntity(zipLocation.zipCode,
+                            LocalDateTime.now(),
+                            weatherEntity)
+
+                    val hourlyForecasts = weatherResponse.hourly.hours.map { hourlyForecast ->
+                        HourlyForecastsEntity(
+                                zipcode = zipLocation.zipCode,
+                                date = hourlyForecast.getTimeAsLocalDateTime(),
+                                weatherCondition = WeatherConditionEntity(
+                                        summary = hourlyForecast.summary,
+                                        icon = hourlyForecast.icon,
+                                        temp = hourlyForecast.temp,
+                                        time = hourlyForecast.getTimeAsLocalDateTime()
+                                )
+                        )
+                    }
+                    weatherResponseDao.saveCurrentConditions(currentEntity)
+                    weatherResponseDao.saveHourlyConditions(hourlyForecasts)
+                }
 
 //        executor.execute {
 //            val responseBody = weatherService.getWeatherCall(zipLocation.latitude, zipLocation.longitude, tempUnit).execute().body()
