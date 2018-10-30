@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
+import com.nerdery.pkarels.weather.model.DayForecasts
 import com.nerdery.pkarels.weather.model.ForecastCondition
 import com.nerdery.pkarels.weather.model.WeatherViewModel
 
@@ -38,13 +40,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
             configureCurrentConditions(it!!)
         })
         viewModel.dayHourlyForecasts().observe(this, Observer {
-            //                        t as ForecastCondition
-//
-//            val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
-//            recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity, viewModel, t.forecasts)
-//        })
-//        viewModel.dailyHourlyForecasts.observe(this, Observer {
-//
+            configureHourlyForecasts(it!!)
         })
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -110,5 +106,11 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
                 } else {
                     Util.TEMP_UNIT_ABBR_CELCIUS
                 })
+    }
+
+    private fun configureHourlyForecasts(dayForecasts: List<DayForecasts>) {
+        val activity = this.activity as AppCompatActivity
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
+        recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity, viewModel, dayForecasts)
     }
 }

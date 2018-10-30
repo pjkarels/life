@@ -10,6 +10,7 @@ import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.weather.data.IconLoadedListener
 import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
+import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
 import com.nerdery.pkarels.weather.repository.WeatherRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -56,9 +57,13 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                             .subscribe(
                                     { onCurrentConditionsFromDb(it) },
                                     Timber::e)
+                    repository.getHoulyConditionsFromDb(zipLocation.zipCode)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ onHourlyConditionsFromDb(it) },
+                                    Timber::e)
                 }
                 .subscribe()
-
     }
 
     fun getIcon(image: String, highlighted: Boolean, listener: IconLoadedListener) {
@@ -85,7 +90,61 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private fun onHourlyConditionsFromDb() {
+    private fun onHourlyConditionsFromDb(hourlyResponse: List<HourlyForecastsEntity>) {
+        dayHourlyForecasts.value = processWeather(hourlyResponse)
+    }
 
+    /***
+     * Divides hourly forecast list into daily forecast blocks
+     */
+    private fun processWeather(hourlyResponse: List<HourlyForecastsEntity>): List<DayForecasts> {
+        val forecasts = ArrayList<DayForecasts>()
+//        val hourlyResponse = response.hourly
+        val hours = hourlyResponse.map { hourlyForecastsEntity ->
+            ForecastCondition(
+                    summary = hourlyForecastsEntity.weatherCondition.summary,
+                    icon = hourlyForecastsEntity.weatherCondition.icon,
+                    temp = hourlyForecastsEntity.weatherCondition.temp,
+                    time = hourlyForecastsEntity.weatherCondition.time.toEpochSecond(ZoneOffset.UTC)
+            )
+        } //hourlyResponse.hours
+        var conditions: MutableList<ForecastCondition> = ArrayList()
+        var dayForecast = DayForecasts()
+        val now = Calendar.getInstance(Locale.US)
+        for (condition in hours) {
+            condition.tempUnit = this.tempUnit
+            val then = Calendar.getInstance(Locale.US)
+            then.timeInMillis = condition.getTimeInMillis()
+            if (then.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)) {
+                conditions.add(condition)
+            } else {
+                now.add(Calendar.DAY_OF_MONTH, 1) // increment one day
+                dayForecast.conditions = conditions
+                forecasts.add(dayForecast)
+
+                dayForecast = DayForecasts()
+                conditions = ArrayList()
+                conditions.add(condition)
+            }
+        }
+        dayForecast.conditions = conditions
+        forecasts.add(dayForecast)
+        for (forecast in forecasts) {
+            var lowest = 999.0
+            var highest = -999.0
+            for (condition in forecast.conditions) {
+                if (condition.temp > highest) highest = condition.temp // record highest temp
+                if (condition.temp < lowest) lowest = condition.temp // record lowest temp
+            }
+            for (condition in forecast.conditions) {
+                if (condition.temp == lowest)
+                    condition.isLowest = true
+                if (condition.temp == highest)
+                    condition.isHighest = true
+            }
+        }
+//        response.forecasts = forecasts
+
+        return forecasts
     }
 }
