@@ -57,7 +57,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                             .subscribe(
                                     { onCurrentConditionsFromDb(it) },
                                     Timber::e)
-                    repository.getHoulyConditionsFromDb(zipLocation.zipCode)
+                    repository.getHourlyConditionsFromDb(zipLocation.zipCode)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ onHourlyConditionsFromDb(it) },

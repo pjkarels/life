@@ -66,7 +66,7 @@ class WeatherRepository(application: LifeApplication) {
     }
 
     fun getCurrentConditionsFromDb(zip: Long) = weatherResponseDao.loadCurrentConditions(zip)
-    fun getHoulyConditionsFromDb(zip: Long) = weatherResponseDao.loadHourlyConditions(zip)
+    fun getHourlyConditionsFromDb(zip: Long) = weatherResponseDao.loadHourlyConditions(zip)
 
     private fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): Single<WeatherResponse> {
         return weatherService.getWeather(zipLocation.latitude, zipLocation.longitude, tempUnit)
