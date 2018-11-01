@@ -1,6 +1,6 @@
-package com.nerdery.pkarels.weather.di
+package com.bitbybitlabs.weather.di
 
-import com.nerdery.pkarels.life.LifeApplication
+import com.bitbybitlabs.life.LifeApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.ui
+package com.bitbybitlabs.weather.ui
 
 import android.app.Dialog
 import android.content.Context

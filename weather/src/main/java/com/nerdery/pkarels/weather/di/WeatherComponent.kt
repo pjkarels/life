@@ -1,6 +1,6 @@
-package com.nerdery.pkarels.weather.di
+package com.bitbybitlabs.weather.di
 
-import com.nerdery.pkarels.weather.model.WeatherViewModel
+import com.bitbybitlabs.weather.model.WeatherViewModel
 import dagger.Component
 import javax.inject.Singleton
 

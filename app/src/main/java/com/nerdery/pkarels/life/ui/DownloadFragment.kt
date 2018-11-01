@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.ui
+package com.bitbybitlabs.life.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.nerdery.pkarels.life.R
-import java.lang.ClassCastException
+import com.bitbybitlabs.life.R
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 const val ARG_MODULE_NAME = "module_name"

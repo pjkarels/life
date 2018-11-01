@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -17,7 +17,7 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.nerdery.pkarels.life", appContext.packageName)
+        assertEquals("com.bitbybitlabs.life", appContext.packageName)
     }
 
     @Test

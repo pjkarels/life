@@ -1,13 +1,13 @@
-package com.nerdery.pkarels.weather.data
+package com.bitbybitlabs.weather.data
 
 import android.app.Application
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
-import com.nerdery.pkarels.life.converter.ThreeTenDateTimeConverters
-import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
-import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
+import com.bitbybitlabs.life.converter.ThreeTenDateTimeConverters
+import com.bitbybitlabs.weather.entity.CurrentConditionEntity
+import com.bitbybitlabs.weather.entity.HourlyForecastsEntity
 
 @Database(entities = [CurrentConditionEntity::class, HourlyForecastsEntity::class], version = 1)
 @TypeConverters(ThreeTenDateTimeConverters::class)

@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.gson
+package com.bitbybitlabs.life.gson
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

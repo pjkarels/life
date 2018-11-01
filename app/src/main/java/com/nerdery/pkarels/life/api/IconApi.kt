@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.api
+package com.bitbybitlabs.life.api
 
 /**
  * API for getting custom Nerdery icon URLs for weather conditions

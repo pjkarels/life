@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.ui
+package com.bitbybitlabs.weather.ui
 
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
@@ -11,13 +11,13 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.nerdery.pkarels.life.TempUnit
-import com.nerdery.pkarels.life.Util
-import com.nerdery.pkarels.weather.R
-import com.nerdery.pkarels.weather.data.IconLoadedListener
-import com.nerdery.pkarels.weather.model.DayForecasts
-import com.nerdery.pkarels.weather.model.ForecastCondition
-import com.nerdery.pkarels.weather.model.WeatherViewModel
+import com.bitbybitlabs.life.TempUnit
+import com.bitbybitlabs.life.Util
+import com.bitbybitlabs.weather.R
+import com.bitbybitlabs.weather.data.IconLoadedListener
+import com.bitbybitlabs.weather.model.DayForecasts
+import com.bitbybitlabs.weather.model.ForecastCondition
+import com.bitbybitlabs.weather.model.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

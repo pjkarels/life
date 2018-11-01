@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import android.content.Context
 

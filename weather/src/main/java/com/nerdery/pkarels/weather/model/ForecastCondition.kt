@@ -1,8 +1,8 @@
-package com.nerdery.pkarels.weather.model
+package com.bitbybitlabs.weather.model
 
+import com.bitbybitlabs.life.TempUnit
+import com.bitbybitlabs.life.Util
 import com.google.gson.annotations.SerializedName
-import com.nerdery.pkarels.life.TempUnit
-import com.nerdery.pkarels.life.Util
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneOffset
 import java.util.*

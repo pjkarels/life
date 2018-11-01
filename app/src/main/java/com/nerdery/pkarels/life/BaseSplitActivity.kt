@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity

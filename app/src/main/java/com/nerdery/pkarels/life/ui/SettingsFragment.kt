@@ -1,11 +1,11 @@
-package com.nerdery.pkarels.life.ui
+package com.bitbybitlabs.life.ui
 
 import android.os.Bundle
 import android.support.v7.preference.ListPreference
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.support.v7.preference.PreferenceScreen
-import com.nerdery.pkarels.life.R
+import com.bitbybitlabs.life.R
 
 
 class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {

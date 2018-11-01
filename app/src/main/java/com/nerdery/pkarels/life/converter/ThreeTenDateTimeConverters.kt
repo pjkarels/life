@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.converter
+package com.bitbybitlabs.life.converter
 
 import android.arch.persistence.room.TypeConverter
 import org.threeten.bp.LocalDate

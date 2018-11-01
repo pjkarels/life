@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.weather.data
+package com.bitbybitlabs.weather.data
 
 
-import com.nerdery.pkarels.life.BuildConfig
-import com.nerdery.pkarels.life.TempUnit
-import com.nerdery.pkarels.weather.model.WeatherResponse
+import com.bitbybitlabs.life.BuildConfig
+import com.bitbybitlabs.life.TempUnit
+import com.bitbybitlabs.weather.model.WeatherResponse
 
 import io.reactivex.Single
 import retrofit2.Call

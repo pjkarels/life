@@ -1,10 +1,10 @@
-package com.nerdery.pkarels.weather.model
+package com.bitbybitlabs.weather.model
 
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
- * Response from DarkSky weather requests in [com.nerdery.pkarels.weather.data.api.WeatherService]
+ * Response from DarkSky weather requests in [com.bitbybitlabs.weather.data.api.WeatherService]
  */
 class WeatherResponse(@field:SerializedName("currently")
                       /**

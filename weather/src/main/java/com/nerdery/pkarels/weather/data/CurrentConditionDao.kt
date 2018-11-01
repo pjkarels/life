@@ -1,11 +1,11 @@
-package com.nerdery.pkarels.weather.data
+package com.bitbybitlabs.weather.data
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
-import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
-import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
+import com.bitbybitlabs.weather.entity.CurrentConditionEntity
+import com.bitbybitlabs.weather.entity.HourlyForecastsEntity
 import io.reactivex.Flowable
 import org.threeten.bp.LocalDateTime
 

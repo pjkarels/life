@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.weather.di
+package com.bitbybitlabs.weather.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.nerdery.pkarels.weather.data.CurrentConditionDao
-import com.nerdery.pkarels.weather.data.WeatherDatabase
+import com.bitbybitlabs.weather.data.CurrentConditionDao
+import com.bitbybitlabs.weather.data.WeatherDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

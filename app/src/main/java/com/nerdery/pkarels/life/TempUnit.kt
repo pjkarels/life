@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import com.google.gson.annotations.SerializedName
 
 /**
- * Temperature unit to be used in requests for [com.nerdery.pkarels.weather.data.api.WeatherService]
+ * Temperature unit to be used in requests for [com.bitbybitlabs.weather.data.api.WeatherService]
  */
 enum class TempUnit constructor(private val value: String) {
     @SerializedName("si")

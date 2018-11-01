@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.model
+package com.bitbybitlabs.weather.model
 
 import android.graphics.Bitmap
 

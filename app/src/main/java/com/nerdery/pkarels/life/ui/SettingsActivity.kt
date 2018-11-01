@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.life.ui
+package com.bitbybitlabs.life.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.nerdery.pkarels.life.Util
+import com.bitbybitlabs.life.Util
 
 class SettingsActivity : AppCompatActivity() {
 

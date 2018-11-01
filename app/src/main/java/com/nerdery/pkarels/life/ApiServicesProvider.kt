@@ -1,9 +1,9 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import android.app.Application
+import com.bitbybitlabs.life.api.IconApi
 import com.jakewharton.byteunits.DecimalByteUnit.MEGABYTES
 import com.jakewharton.picasso.OkHttp3Downloader
-import com.nerdery.pkarels.life.api.IconApi
 import com.squareup.picasso.Picasso
 import okhttp3.Cache
 import okhttp3.OkHttpClient

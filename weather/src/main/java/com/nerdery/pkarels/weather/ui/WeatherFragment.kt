@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.ui
+package com.bitbybitlabs.weather.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -14,15 +14,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.nerdery.pkarels.life.TempUnit
-import com.nerdery.pkarels.life.Util
-import com.nerdery.pkarels.life.ZipCodeService
-import com.nerdery.pkarels.life.ui.SettingsActivity
-import com.nerdery.pkarels.weather.R
-import com.nerdery.pkarels.weather.model.DayForecasts
-import com.nerdery.pkarels.weather.model.ForecastCondition
-import com.nerdery.pkarels.weather.model.WeatherResponseError
-import com.nerdery.pkarels.weather.model.WeatherViewModel
+import com.bitbybitlabs.life.TempUnit
+import com.bitbybitlabs.life.Util
+import com.bitbybitlabs.life.ZipCodeService
+import com.bitbybitlabs.life.ui.SettingsActivity
+import com.bitbybitlabs.weather.R
+import com.bitbybitlabs.weather.model.DayForecasts
+import com.bitbybitlabs.weather.model.ForecastCondition
+import com.bitbybitlabs.weather.model.WeatherResponseError
+import com.bitbybitlabs.weather.model.WeatherViewModel
 
 class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     companion object {
@@ -73,7 +73,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
         this.location = location
         val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title = getString(com.nerdery.pkarels.life.R.string.location_display, location.city, location.state)
+        activity.supportActionBar?.title = getString(com.bitbybitlabs.life.R.string.location_display, location.city, location.state)
         getWeather()
     }
 
@@ -89,8 +89,8 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     }
 
     private fun getTempUnit(): TempUnit {
-        val units = sharedPreferences.getString("pref_title_units", getString(com.nerdery.pkarels.life.R.string.pref_units_default))
-        return if (units == getString(com.nerdery.pkarels.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
+        val units = sharedPreferences.getString("pref_title_units", getString(com.bitbybitlabs.life.R.string.pref_units_default))
+        return if (units == getString(com.bitbybitlabs.life.R.string.pref_units_default)) TempUnit.FAHRENHEIT else TempUnit.CELSIUS
     }
 
     private fun configureCurrentConditions(currentCondition: ForecastCondition) {

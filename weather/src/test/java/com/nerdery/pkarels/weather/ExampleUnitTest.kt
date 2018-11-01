@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather
+package com.bitbybitlabs.weather
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals

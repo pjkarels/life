@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.entity
+package com.bitbybitlabs.weather.entity
 
 import android.arch.persistence.room.ColumnInfo
 import org.threeten.bp.LocalDateTime

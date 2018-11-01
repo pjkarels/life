@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.weather.data
+package com.bitbybitlabs.weather.data
 
 import okhttp3.ResponseBody
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals

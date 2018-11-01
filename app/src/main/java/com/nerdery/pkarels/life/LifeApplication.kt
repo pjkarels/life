@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life
+package com.bitbybitlabs.life
 
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import com.jakewharton.threetenabp.AndroidThreeTen

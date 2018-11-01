@@ -1,4 +1,4 @@
-package com.nerdery.pkarels.life.ui
+package com.bitbybitlabs.life.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,14 +13,14 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.bitbybitlabs.life.R
+import com.bitbybitlabs.life.Util
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import com.nerdery.pkarels.life.R
-import com.nerdery.pkarels.life.Util
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val TAG = "DynamicFeatures"
-private const val weatherPackageName = "com.nerdery.pkarels.weather.ui"
+private const val weatherPackageName = "com.bitbybitlabs.weather.ui"
 
 class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInteractionListener {
 
