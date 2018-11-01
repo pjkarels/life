@@ -21,9 +21,11 @@ import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
+import javax.inject.Inject
 
-class WeatherRepository(application: LifeApplication) {
+class WeatherRepository @Inject constructor(application: LifeApplication) {
 
     private lateinit var tempUnit: TempUnit
 
@@ -69,6 +71,13 @@ class WeatherRepository(application: LifeApplication) {
     fun getHourlyConditionsFromDb(zip: Long) = weatherResponseDao.loadHourlyConditions(zip)
 
     private fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit): Single<WeatherResponse> {
+        Single.fromCallable {
+            weatherResponseDao.deleteCurrentConditions()
+            weatherResponseDao.deleteHourlyConditions()
+        }
+                .subscribeOn(Schedulers.io())
+                .subscribe({}, Timber::e)
+
         return weatherService.getWeather(zipLocation.latitude, zipLocation.longitude, tempUnit)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { weatherResponse ->
@@ -95,6 +104,9 @@ class WeatherRepository(application: LifeApplication) {
                     }
                     weatherResponseDao.saveCurrentConditions(currentEntity)
                     weatherResponseDao.saveHourlyConditions(hourlyForecasts)
+                }
+                .doOnError {
+
                 }
     }
 }

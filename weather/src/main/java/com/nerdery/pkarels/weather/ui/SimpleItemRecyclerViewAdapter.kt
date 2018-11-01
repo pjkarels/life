@@ -1,6 +1,8 @@
 package com.nerdery.pkarels.weather.ui
 
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -64,6 +66,10 @@ class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActi
             val tempView = forecastView.findViewById<TextView>(R.id.weather_cell_temp)
 
             getIcon(condition, iconView, conditionDescriptionView)
+            iconView.setColorFilter(ContextCompat.getColor(context,
+                    if (condition.isHighest) R.color.weather_warm
+                    else R.color.weather_cool),
+                    PorterDuff.Mode.SRC_ATOP)
 
             timeView.text = dateFormatter.format(condition.getTimeAsDate())
             tempView.text = forecastsView.context.getString(R.string.degrees, condition.getTemperature(),

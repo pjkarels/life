@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ZipCodeService
@@ -22,6 +21,7 @@ import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
 import com.nerdery.pkarels.weather.model.DayForecasts
 import com.nerdery.pkarels.weather.model.ForecastCondition
+import com.nerdery.pkarels.weather.model.WeatherResponseError
 import com.nerdery.pkarels.weather.model.WeatherViewModel
 
 class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
@@ -32,6 +32,8 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     private lateinit var viewModel: WeatherViewModel
     private lateinit var sharedPreferences: SharedPreferences
 
+    private var location: ZipCodeService.ZipLocation? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,6 +43,9 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         })
         viewModel.dayHourlyForecasts().observe(this, Observer {
             configureHourlyForecasts(it!!)
+        })
+        viewModel.weatherError().observe(this, Observer {
+            configureWeatherErrorCondition(it)
         })
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -66,13 +71,21 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     }
 
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
-        val activity = this.activity as AppCompatActivity
+        this.location = location
+        val activity = activity as AppCompatActivity
         activity.supportActionBar?.title = getString(com.nerdery.pkarels.life.R.string.location_display, location.city, location.state)
-        viewModel.init(location, getTempUnit(), activity.application as LifeApplication)
+        getWeather()
     }
 
     override fun onLocationNotFound() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun getWeather() {
+        val zipLocation = location
+        if (zipLocation != null) {
+            viewModel.init(zipLocation, getTempUnit())
+        }
     }
 
     private fun getTempUnit(): TempUnit {
@@ -112,5 +125,12 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         val activity = this.activity as AppCompatActivity
         val recyclerView = view?.findViewById<RecyclerView>(R.id.weather_recyclerView)
         recyclerView?.adapter = SimpleItemRecyclerViewAdapter(activity, viewModel, dayForecasts)
+    }
+
+    private fun configureWeatherErrorCondition(weatherResponseError: WeatherResponseError?) {
+        if (weatherResponseError != null) {
+            val weatherErrorDialog = WeatherErrorDialog.newInstance()
+            weatherErrorDialog.show(fragmentManager, WeatherErrorDialog::class.java.name)
+        }
     }
 }

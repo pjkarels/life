@@ -9,6 +9,9 @@ import com.nerdery.pkarels.life.LifeApplication
 import com.nerdery.pkarels.life.TempUnit
 import com.nerdery.pkarels.life.ZipCodeService
 import com.nerdery.pkarels.weather.data.IconLoadedListener
+import com.nerdery.pkarels.weather.di.AppModule
+import com.nerdery.pkarels.weather.di.DaggerWeatherComponent
+import com.nerdery.pkarels.weather.di.RoomModule
 import com.nerdery.pkarels.weather.entity.CurrentConditionEntity
 import com.nerdery.pkarels.weather.entity.HourlyForecastsEntity
 import com.nerdery.pkarels.weather.repository.WeatherRepository
@@ -17,39 +20,41 @@ import io.reactivex.schedulers.Schedulers
 import org.threeten.bp.ZoneOffset
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
-    //    init {
-//        val weatherComponent = DaggerWeatherComponent.builder()
-//                .appModule(AppModule(application))
-//                .roomModule(RoomModule(application))
-//                .build()
-//                .inject(this)
-//    }
-//
-    private lateinit var repository: WeatherRepository
+    init {
+        DaggerWeatherComponent.builder()
+                .appModule(AppModule(application as LifeApplication))
+                .roomModule(RoomModule(application))
+                .build()
+                .inject(this)
+    }
+
+    @Inject
+    lateinit var repository: WeatherRepository
 
     private lateinit var location: ZipCodeService.ZipLocation
     private lateinit var tempUnit: TempUnit
 
-    private lateinit var dayForecasts: ArrayList<DayForecasts>
-
     private val currentConditions = MutableLiveData<ForecastCondition>()
     private val dayHourlyForecasts = MutableLiveData<List<DayForecasts>>()
+    private val weatherResponseError = MutableLiveData<WeatherResponseError>()
 
     fun currentConditions(): LiveData<ForecastCondition> = currentConditions
     fun dayHourlyForecasts(): LiveData<List<DayForecasts>> = dayHourlyForecasts
+    fun weatherError(): LiveData<WeatherResponseError> = weatherResponseError
 
-    fun init(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit, lifeApplication: LifeApplication) {
+    fun init(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit) {
         this.location = zipLocation
         this.tempUnit = tempUnit
-        repository = WeatherRepository(lifeApplication)
 
         refreshWeather(zipLocation, tempUnit)
     }
 
     fun refreshWeather(zipLocation: ZipCodeService.ZipLocation, tempUnit: TempUnit) {
         repository.getWeather(zipLocation, tempUnit)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess {
                     repository.getCurrentConditionsFromDb(zipLocation.zipCode)
                             .subscribeOn(Schedulers.io())
@@ -62,6 +67,9 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ onHourlyConditionsFromDb(it) },
                                     Timber::e)
+                }
+                .doOnError {
+                    onWeatherError(it.localizedMessage)
                 }
                 .subscribe()
     }
@@ -94,12 +102,15 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         dayHourlyForecasts.value = processWeather(hourlyResponse)
     }
 
+    private fun onWeatherError(message: String) {
+        weatherResponseError.value = WeatherResponseError(message)
+    }
+
     /***
      * Divides hourly forecast list into daily forecast blocks
      */
     private fun processWeather(hourlyResponse: List<HourlyForecastsEntity>): List<DayForecasts> {
         val forecasts = ArrayList<DayForecasts>()
-//        val hourlyResponse = response.hourly
         val hours = hourlyResponse.map { hourlyForecastsEntity ->
             ForecastCondition(
                     summary = hourlyForecastsEntity.weatherCondition.summary,
@@ -107,7 +118,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                     temp = hourlyForecastsEntity.weatherCondition.temp,
                     time = hourlyForecastsEntity.weatherCondition.time.toEpochSecond(ZoneOffset.UTC)
             )
-        } //hourlyResponse.hours
+        }
         var conditions: MutableList<ForecastCondition> = ArrayList()
         var dayForecast = DayForecasts()
         val now = Calendar.getInstance(Locale.US)
@@ -143,7 +154,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                     condition.isHighest = true
             }
         }
-//        response.forecasts = forecasts
 
         return forecasts
     }

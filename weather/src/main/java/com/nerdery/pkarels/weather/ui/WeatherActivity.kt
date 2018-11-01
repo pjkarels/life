@@ -9,7 +9,7 @@ import com.nerdery.pkarels.life.Util
 import com.nerdery.pkarels.life.ui.SettingsActivity
 import com.nerdery.pkarels.weather.R
 
-class WeatherActivity : BaseSplitActivity() {
+class WeatherActivity : BaseSplitActivity(), WeatherErrorDialog.OnPositiveButtonClickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,4 +42,8 @@ class WeatherActivity : BaseSplitActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onPositivieButtonClicked() {
+        val weatherFragment = supportFragmentManager.findFragmentById(R.id.container) as WeatherFragment
+        weatherFragment.getWeather()
+    }
 }
