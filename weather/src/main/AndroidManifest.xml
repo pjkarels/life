@@ -5,12 +5,12 @@
     split="weather">
 
     <dist:module
-        dist:onDemand="false"
+        dist:onDemand="true"
         dist:title="@string/title_weather">
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application>
+    <application android:hasCode="true">
         <activity android:name="com.bitbybitlabs.weather.ui.WeatherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
