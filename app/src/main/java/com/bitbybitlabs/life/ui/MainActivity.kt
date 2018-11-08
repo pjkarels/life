@@ -12,12 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
+import com.bitbybitlabs.life.BuildConfig
 import com.bitbybitlabs.life.R
 import com.bitbybitlabs.life.Util
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 private const val TAG = "DynamicFeatures"
 private const val weatherPackageName = "com.bitbybitlabs.weather.ui"
@@ -147,6 +152,7 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCenter.start(application, BuildConfig.APPCENTER_KEY, Analytics::class.java, Crashes::class.java)
         setContentView(R.layout.activity_main)
         initializeViews()
 
