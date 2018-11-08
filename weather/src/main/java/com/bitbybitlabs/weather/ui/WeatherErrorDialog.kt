@@ -3,9 +3,9 @@ package com.bitbybitlabs.weather.ui
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 
 class WeatherErrorDialog : DialogFragment() {
 
@@ -28,15 +28,13 @@ class WeatherErrorDialog : DialogFragment() {
                 .create()
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context != null) {
-            if (context is OnPositiveButtonClickedListener) {
-                listener = context
-            } else {
-                throw ClassCastException(context.javaClass.name + "does not implement" + OnPositiveButtonClickedListener::class.java.simpleName)
-            }
+        if (context is OnPositiveButtonClickedListener) {
+            listener = context
+        } else {
+            throw ClassCastException(context.javaClass.name + "does not implement" + OnPositiveButtonClickedListener::class.java.simpleName)
         }
     }
 

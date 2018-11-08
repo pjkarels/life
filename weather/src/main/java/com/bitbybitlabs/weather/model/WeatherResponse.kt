@@ -1,6 +1,6 @@
 package com.bitbybitlabs.weather.model
 
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**

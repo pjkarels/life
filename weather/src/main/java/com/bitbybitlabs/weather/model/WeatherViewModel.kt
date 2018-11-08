@@ -1,10 +1,10 @@
 package com.bitbybitlabs.weather.model
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.graphics.Bitmap
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.bitbybitlabs.life.LifeApplication
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.ZipCodeService

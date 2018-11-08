@@ -2,10 +2,10 @@ package com.bitbybitlabs.life.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.bitbybitlabs.life.R
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +46,7 @@ class DownloadFragment : Fragment() {
         listener?.onFragmentInteraction(moduleName)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
 
         if (context is OnDownloadFragmentInteractionListener) {

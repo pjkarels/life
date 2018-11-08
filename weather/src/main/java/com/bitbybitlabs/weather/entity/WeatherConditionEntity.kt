@@ -1,6 +1,6 @@
 package com.bitbybitlabs.weather.entity
 
-import android.arch.persistence.room.ColumnInfo
+import androidx.room.ColumnInfo
 import org.threeten.bp.LocalDateTime
 
 class WeatherConditionEntity(

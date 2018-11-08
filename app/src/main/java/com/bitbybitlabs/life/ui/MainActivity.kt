@@ -3,9 +3,6 @@ package com.bitbybitlabs.life.ui
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.constraint.Group
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -13,8 +10,11 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import com.bitbybitlabs.life.R
 import com.bitbybitlabs.life.Util
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import kotlinx.android.synthetic.main.activity_main.*

@@ -1,7 +1,7 @@
 package com.bitbybitlabs.weather.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.bitbybitlabs.weather.data.CurrentConditionDao
 import com.bitbybitlabs.weather.data.WeatherDatabase
 import dagger.Module
