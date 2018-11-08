@@ -32,7 +32,12 @@ android {
     }
 
 
-    dynamicFeatures = [":weather"]
+    dynamicFeatures = [":weather", ":finance"]
+
+
+    
+
+
 }
 
 ext {
