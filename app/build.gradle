@@ -25,6 +25,7 @@ android {
 
         buildConfigField "String", "API_KEY", "\"$project.darkSkyApiKey\""
         buildConfigField "String", "APPCENTER_KEY", "\"$project.appCenterKey\""
+        // meaningless change to test accessibility
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
