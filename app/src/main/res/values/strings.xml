@@ -3,6 +3,7 @@
     <string name="title_weather">Weather</string>
     <string name="title_activity_main">@string/app_name</string>
     <string name="title_home">Home</string>
+    <string name="title_finance">Finance</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_settings">@string/action_settings</string>
 
@@ -24,5 +25,5 @@
     <string name="pref_units_default">Fahrenheit</string>
     <string name="pref_title_zip">Zip</string>
     <string name="pref_title_units">Units</string>
-    <string name="title_finance">Finance</string>
+    <string name="title_activity_transactions">Transactions</string>
 </resources>

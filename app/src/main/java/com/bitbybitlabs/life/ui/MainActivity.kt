@@ -25,7 +25,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 private const val TAG = "DynamicFeatures"
-private const val weatherPackageName = "com.bitbybitlabs.weather.ui"
+private const val weatherModuleName = "weather"
+private const val financeModuleName = "finance"
+private const val weatherPackageName = "com.bitbybitlabs.$weatherModuleName.ui"
+private const val financePackageName = "com.bitbybitlabs.pkarels.$financeModuleName"
 
 class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInteractionListener {
 
@@ -70,7 +73,8 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
 
     private fun onSuccessfulLoad(moduleName: String) {
         when (moduleName) {
-            "weather" -> launchActivity("$weatherPackageName.WeatherActivity")
+            weatherModuleName -> launchActivity("$weatherPackageName.WeatherActivity")
+            financeModuleName -> launchActivity("$financePackageName.TransactionsActivity")
         }
     }
 
@@ -113,16 +117,23 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                if (manager.installedModules.contains("weather")) {
+                if (manager.installedModules.contains(weatherModuleName)) {
                     launchActivity("$weatherPackageName.WeatherActivity")
                 } else {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, DownloadFragment.newInstance("weather"))
+                            .replace(R.id.fragment_container, DownloadFragment.newInstance(weatherModuleName))
                             .commit()
                 }
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_finance -> {
+                if (manager.installedModules.contains(financeModuleName)) {
+                    launchActivity("$financePackageName.TransactionsActivity")
+                } else {
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, DownloadFragment.newInstance(financeModuleName))
+                            .commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
         }

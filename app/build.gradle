@@ -38,11 +38,6 @@ android {
 
 
     dynamicFeatures = [":weather", ":finance"]
-
-
-    
-
-
 }
 
 ext {

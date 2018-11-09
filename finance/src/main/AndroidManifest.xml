@@ -1,4 +1,6 @@
-<manifest xmlns:dist="http://schemas.android.com/apk/distribution"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.bitbybitlabs.pkarels.finance">
 
     <dist:module
@@ -6,5 +8,12 @@
         dist:title="@string/title_finance">
         <dist:fusing dist:include="true" />
     </dist:module>
-</manifest>
 
+    <application>
+        <activity
+            android:name=".TransactionsActivity"
+            android:label="@string/title_activity_transactions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
