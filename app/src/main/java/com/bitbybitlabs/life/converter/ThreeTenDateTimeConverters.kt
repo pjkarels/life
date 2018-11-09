@@ -1,6 +1,6 @@
 package com.bitbybitlabs.life.converter
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime

@@ -1,8 +1,8 @@
 package com.bitbybitlabs.weather.entity
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
 import org.threeten.bp.LocalDateTime
 
 @Entity(

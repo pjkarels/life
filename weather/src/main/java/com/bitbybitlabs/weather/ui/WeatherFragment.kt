@@ -1,19 +1,19 @@
 package com.bitbybitlabs.weather.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.life.ZipCodeService
@@ -130,7 +130,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     private fun configureWeatherErrorCondition(weatherResponseError: WeatherResponseError?) {
         if (weatherResponseError != null) {
             val weatherErrorDialog = WeatherErrorDialog.newInstance()
-            weatherErrorDialog.show(fragmentManager, WeatherErrorDialog::class.java.name)
+            weatherErrorDialog.show(requireFragmentManager(), WeatherErrorDialog::class.java.name)
         }
     }
 }
