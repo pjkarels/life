@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
+import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 
 
 class TransactionsFragment : Fragment() {
@@ -30,10 +30,12 @@ class TransactionsFragment : Fragment() {
 
         val fab = contentView.findViewById<View>(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            TransactionDialogFragment().show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
         }
         return contentView
     }
 
+    fun saveTransaction(transaction: TransactionEntity) {
+        viewModel.addOrUpdateTransaction(transaction)
+    }
 }
