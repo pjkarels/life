@@ -2,4 +2,11 @@
     <string name="action_settings">Settings</string>
     <string name="label_finance_total_balance">Total Balance</string>
     <string name="label_finance_available_balance">Available Balance</string>
+
+    <string name="hint_transaction_type">Type</string>
+    <string name="hint_transaction_date">Transaction Date</string>
+    <string name="hint_transaction_amount">Amount</string>
+    <string name="label_transaction_iscredit">Credit?</string>
+    <string name="hint_transaction_description">Description</string>
+    <string name="label_transaction_cleared">Cleared</string>
 </resources>

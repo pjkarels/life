@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/transaction_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_transaction_type"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/transaction_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_transaction_date"
+        android:inputType="date"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/transaction_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_transaction_description"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <CheckedTextView
+        android:id="@+id/transaction_isCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_transaction_iscredit" />
+
+    <EditText
+        android:id="@+id/transaction_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_transaction_amount"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <CheckedTextView
+        android:id="@+id/transaction_cleared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_transaction_cleared" />
+</LinearLayout>

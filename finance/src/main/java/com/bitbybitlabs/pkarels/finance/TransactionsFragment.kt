@@ -18,6 +18,12 @@ class TransactionsFragment : Fragment() {
     private lateinit var viewModel: TransactionsViewModel
     private lateinit var contentView: View
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(TransactionsViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.fragment_transactions, container, false)
@@ -28,12 +34,6 @@ class TransactionsFragment : Fragment() {
                     .setAction("Action", null).show()
         }
         return contentView
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(TransactionsViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
