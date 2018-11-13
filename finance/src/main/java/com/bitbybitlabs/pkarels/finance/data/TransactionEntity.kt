@@ -16,8 +16,8 @@ data class TransactionEntity(
         @ColumnInfo(name = "transaction_type")
         val transactionType: String,
 
-        @ColumnInfo(name = "isDebit", typeAffinity = INTEGER)
-        val isDebit: Boolean = true,
+        @ColumnInfo(name = "isCredit", typeAffinity = INTEGER)
+        val isCredit: Boolean = true,
 
         @ColumnInfo(name = "transaction_amount", typeAffinity = REAL)
         val transactionAmount: Double,

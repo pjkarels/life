@@ -3,7 +3,7 @@ package com.bitbybitlabs.pkarels.finance
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.widget.CheckedTextView
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -44,9 +44,9 @@ class TransactionDialogFragment : DialogFragment() {
         val transactionTypeView = dialog?.findViewById<EditText>(R.id.transaction_type)
         val transactionDateView = dialog?.findViewById<EditText>(R.id.transaction_date)
         val transactionDescriptionView = dialog?.findViewById<EditText>(R.id.transaction_description)
-        val transactionCreditView = dialog?.findViewById<CheckedTextView>(R.id.transaction_isCredit)
+        val transactionCreditView = dialog?.findViewById<CheckBox>(R.id.transaction_isCredit)
         val transactionAmountView = dialog?.findViewById<EditText>(R.id.transaction_amount)
-        val transactionClearedView = dialog?.findViewById<CheckedTextView>(R.id.transaction_cleared)
+        val transactionClearedView = dialog?.findViewById<CheckBox>(R.id.transaction_cleared)
 
         val transactionType = transactionTypeView?.text ?: ""
         val transactionDate = transactionDateView?.text ?: ""

@@ -10,7 +10,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import timber.log.Timber.e
 
 class TransactionsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TransactionsRepository(application)
@@ -20,11 +19,11 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
 
     fun getTransactions() {
         repository.getTransactions()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { t -> t.printStackTrace() }
+                .doOnNext { onLoadFromDb(it) }
                 .subscribe(
-                        { transactions.value = it },
-                        Timber::e
                 )
     }
 
@@ -44,5 +43,17 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, Timber::e)
+    }
+
+    private fun onLoadFromDb(transactionsList: List<TransactionEntity>) {
+        transactions.value = transactionsList
+    }
+
+    private fun onSuccessfulAdd() {
+
+    }
+
+    private fun onError() {
+
     }
 }
