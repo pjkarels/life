@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/label_finance_total_balance" />
+        android:text="@string/label_finance_total_balance"
+        />
 
     <TextView
         android:id="@+id/total_balance_text"
@@ -21,14 +22,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="$999.99" />
+        android:text="$999.99"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_label"
-        android:text="@string/label_finance_available_balance" />
+        android:text="@string/label_finance_available_balance"
+        />
 
     <TextView
         android:id="@+id/available_balance_text"
@@ -36,21 +39,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_text"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="$999.99" />
+        android:text="$999.99"
+        />
 
     <View
         android:id="@+id/separator_view"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@+id/available_balance_text" />
+        app:layout_constraintTop_toBottomOf="@+id/available_balance_text"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactions_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/separator_view"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -60,5 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
