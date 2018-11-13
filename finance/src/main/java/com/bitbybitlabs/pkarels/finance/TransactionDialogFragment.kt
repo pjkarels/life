@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionSavedListener
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
+import java.util.*
 
 class TransactionDialogFragment : DialogFragment() {
     private lateinit var listener: TransactionSavedListener
@@ -18,6 +20,7 @@ class TransactionDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
                 .setView(R.layout.fragment_transaction_dialog)
+                .setTitle("Add/Edit Transaction")
                 .setPositiveButton(android.R.string.ok) { dialog, which ->
                     listener.onTransactionSaved(createTransaction())
                 }
@@ -54,7 +57,7 @@ class TransactionDialogFragment : DialogFragment() {
 
         val transactionAmount = transactionAmountString.sumByDouble { t -> t.toDouble() }
 
-        val transaction = TransactionEntity(LocalDateTime.parse(transactionDate),
+        val transaction = TransactionEntity(parseDateString(transactionDate.toString()),
                 transactionType.toString(),
                 transactionCredit,
                 transactionAmount,
@@ -64,5 +67,12 @@ class TransactionDialogFragment : DialogFragment() {
 
 
         return transaction
+    }
+
+    private fun parseDateString(dateString: String): LocalDateTime {
+        val useDateString = dateString + " 12:00"
+        val date = LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US))
+
+        return date
     }
 }

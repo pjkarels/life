@@ -23,6 +23,6 @@ interface TransactionsDao {
     @Query("SELECT * FROM `transaction` WHERE transaction_date BETWEEN :startDate AND :endDate")
     fun getTransactionsInRange(startDate: LocalDateTime, endDate: LocalDateTime): Flowable<List<TransactionEntity>>
 
-    @Query("SELECT 1 FROM `transaction` WHERE transaction_date < :transactionDate")
+    @Query("SELECT * FROM `transaction` WHERE transaction_date < :transactionDate LIMIT 1")
     fun getPreviousTransaction(transactionDate: LocalDateTime): Flowable<TransactionEntity>
 }

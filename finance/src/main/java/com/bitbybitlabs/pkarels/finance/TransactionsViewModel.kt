@@ -6,9 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.data.TransactionsRepository
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import timber.log.Timber.e
 
 class TransactionsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TransactionsRepository(application)
@@ -27,10 +29,20 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun addOrUpdateTransaction(transaction: TransactionEntity) {
-        repository.saveOrUpdateTransaction(transaction)
+        Single.fromCallable {
+            repository.saveOrUpdateTransaction(transaction)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, Timber::e)
     }
 
     fun deleteTransaction(transaction: TransactionEntity) {
-        repository.deleteTransaction(transaction)
+        Single.fromCallable {
+            repository.deleteTransaction(transaction)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, Timber::e)
     }
 }
