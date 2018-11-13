@@ -19,17 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <CheckBox
-        android:id="@+id/item_transaction_isCredit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_transaction_iscredit"
-        android:enabled="false" />
-
     <TextView
         android:id="@+id/item_transaction_description"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0" />
 
     <CheckBox
         android:id="@+id/item_transaction_cleared"

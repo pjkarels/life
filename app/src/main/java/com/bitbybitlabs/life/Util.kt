@@ -67,5 +67,9 @@ class Util {
             return (tempUnit == TempUnit.FAHRENHEIT && temp >= TEMP_THRESHOLD_FAHRENHEIT
                     || tempUnit == TempUnit.CELSIUS && temp >= TEMP_THRESHOLD_CELCIUS)
         }
+
+        fun stringToDouble(input: String): Double {
+            return input.toDouble()
+        }
     }
 }

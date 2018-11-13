@@ -26,7 +26,6 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>)
         holder.transactionTypeView.text = item.transactionType
         holder.transactionDateView.text = item.transactionDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         holder.transactionAmountView.text = item.transactionAmount.toString()
-        holder.transactionIsCreditView.isChecked = item.isCredit
         holder.transactionDescriptionView.text = item.description
         holder.transactionIsClearedView.isChecked = item.cleared
     }
@@ -36,7 +35,6 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>)
         val transactionTypeView = view.findViewById<TextView>(R.id.item_transaction_type)
         val transactionDateView = view.findViewById<TextView>(R.id.item_transaction_date)
         val transactionAmountView = view.findViewById<TextView>(R.id.item_transaction_amount)
-        val transactionIsCreditView = view.findViewById<CheckBox>(R.id.item_transaction_isCredit)
         val transactionDescriptionView = view.findViewById<TextView>(R.id.item_transaction_description)
         val transactionIsClearedView = view.findViewById<CheckBox>(R.id.item_transaction_cleared)
     }

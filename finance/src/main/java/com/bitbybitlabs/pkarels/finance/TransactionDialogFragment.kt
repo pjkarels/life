@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionSavedListener
 import org.threeten.bp.LocalDateTime
@@ -55,7 +56,7 @@ class TransactionDialogFragment : DialogFragment() {
         val transactionAmountString = transactionAmountView?.text ?: ""
         val transactionCleared = transactionClearedView?.isChecked ?: false
 
-        val transactionAmount = transactionAmountString.sumByDouble { t -> t.toDouble() }
+        val transactionAmount = Util.stringToDouble(transactionAmountString.toString())
 
         val transaction = TransactionEntity(parseDateString(transactionDate.toString()),
                 transactionType.toString(),
