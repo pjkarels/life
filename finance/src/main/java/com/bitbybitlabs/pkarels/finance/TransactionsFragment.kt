@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,10 +14,6 @@ import com.bitbybitlabs.pkarels.finance.ui.TransactionsListAdapter
 
 
 class TransactionsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = TransactionsFragment()
-    }
 
     private lateinit var viewModel: TransactionsViewModel
     private lateinit var contentView: View
@@ -42,14 +39,14 @@ class TransactionsFragment : Fragment() {
 
         val fab = contentView.findViewById<View>(R.id.fab)
         fab.setOnClickListener { view ->
-            TransactionDialogFragment().show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
+            TransactionDialogFragment.newInstance().show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
         }
         return contentView
     }
 
     private fun configureTransaction(transactions: List<TransactionEntity>) {
         val recyclerView = contentView.findViewById<RecyclerView>(R.id.transactions_recycler_view)
-        recyclerView.adapter = TransactionsListAdapter(transactions)
+        recyclerView.adapter = TransactionsListAdapter(transactions, activity as AppCompatActivity)
     }
 
     fun saveTransaction(transaction: TransactionEntity) {

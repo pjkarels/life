@@ -7,36 +7,40 @@
 
     <TextView
         android:id="@+id/item_transaction_type"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.11"
+        android:textAlignment="textStart"
         />
 
     <TextView
         android:id="@+id/item_transaction_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        />
-
-    <TextView
-        android:id="@+id/item_transaction_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_weight="0.24"
         />
 
     <TextView
         android:id="@+id/item_transaction_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.40"
         android:ellipsize="end"
         android:lines="1"
         />
 
     <CheckBox
         android:id="@+id/item_transaction_cleared"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/label_transaction_cleared"
+        android:layout_weight="0.08"
         android:enabled="false"
         />
+
+    <TextView
+        android:id="@+id/item_transaction_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:textAlignment="textEnd" />
 </LinearLayout>

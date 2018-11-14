@@ -1,7 +1,6 @@
 package com.bitbybitlabs.pkarels.finance.data
 
 import android.app.Application
-import io.reactivex.Flowable
 import org.threeten.bp.LocalDateTime
 
 
@@ -10,10 +9,8 @@ class TransactionsRepository(application: Application) {
     private val transactionsDatabase = TransactionsDatabase.create(application)
     private val transactionsDao = transactionsDatabase.transactionDao()
 
-    fun getTransactions(date: LocalDateTime = LocalDateTime.now()): Flowable<List<TransactionEntity>> {
-        val transactions = transactionsDao.getTransactions(date)
-        return transactions
-    }
+    fun getTransactions(date: LocalDateTime = LocalDateTime.now()) = transactionsDao.getTransactions(date)
+
     fun getTransactions(startDate: LocalDateTime, endDate: LocalDateTime) = transactionsDao.getTransactionsInRange(startDate, endDate)
 
     fun saveOrUpdateTransaction(transaction: TransactionEntity) {
@@ -23,4 +20,6 @@ class TransactionsRepository(application: Application) {
     fun deleteTransaction(transaction: TransactionEntity) {
         transactionsDao.deleteTransaction(transaction)
     }
+
+    fun getTransaction(id: Int) = transactionsDao.getTransaction(id)
 }

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import io.reactivex.Flowable
+import io.reactivex.Single
 import org.threeten.bp.LocalDateTime
 
 @Dao
@@ -25,4 +26,7 @@ interface TransactionsDao {
 
     @Query("SELECT * FROM `transaction` WHERE transaction_date < :transactionDate LIMIT 1")
     fun getPreviousTransaction(transactionDate: LocalDateTime): Flowable<TransactionEntity>
+
+    @Query("SELECT * FROM `transaction` WHERE id = :id")
+    fun getTransaction(id: Int): Single<TransactionEntity>
 }

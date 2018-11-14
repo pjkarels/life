@@ -5,20 +5,56 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
+import com.bitbybitlabs.pkarels.finance.model.TransactionViewModel
 import com.bitbybitlabs.pkarels.finance.ui.TransactionSavedListener
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 
 class TransactionDialogFragment : DialogFragment() {
+
+    companion object {
+        fun newInstance(transactionId: Int? = null): TransactionDialogFragment {
+            val fragment = TransactionDialogFragment()
+            if (transactionId != null) {
+                val args = Bundle()
+                args.putInt(Util.ARGS_BUNDLE_TRANSACTION_ID, transactionId)
+                fragment.arguments = args
+            }
+
+            return fragment
+        }
+    }
+
+    private lateinit var viewModel: TransactionViewModel
     private lateinit var listener: TransactionSavedListener
     private val previousBalance = 0.0
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(TransactionViewModel::class.java)
+        viewModel.transaction().observe(this, Observer {
+            configureTransaction(it)
+        })
+
+        // retrieve transaction if an id is passed for an edit
+        val myArguments = arguments
+        if (myArguments != null && myArguments.containsKey(Util.ARGS_BUNDLE_TRANSACTION_ID)) {
+            viewModel.fetchTransaction(myArguments.getInt(Util.ARGS_BUNDLE_TRANSACTION_ID))
+        }
+
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         return AlertDialog.Builder(requireContext())
                 .setView(R.layout.fragment_transaction_dialog)
                 .setTitle("Add/Edit Transaction")
@@ -49,6 +85,7 @@ class TransactionDialogFragment : DialogFragment() {
         val transactionAmountView = dialog?.findViewById<EditText>(R.id.transaction_amount)
         val transactionClearedView = dialog?.findViewById<CheckBox>(R.id.transaction_cleared)
 
+        // retrieve or initialize values to default
         val transactionType = transactionTypeView?.text ?: ""
         val transactionDate = transactionDateView?.text ?: ""
         val transactionDescription = transactionDescriptionView?.text ?: ""
@@ -58,22 +95,27 @@ class TransactionDialogFragment : DialogFragment() {
 
         val transactionAmount = Util.stringToDouble(transactionAmountString.toString())
 
-        val transaction = TransactionEntity(parseDateString(transactionDate.toString()),
+        return TransactionEntity(parseDateString(transactionDate.toString()),
                 transactionType.toString(),
                 transactionCredit,
                 transactionAmount,
                 transactionDescription.toString(),
                 transactionCleared,
                 previousBalance)
-
-
-        return transaction
     }
 
     private fun parseDateString(dateString: String): LocalDateTime {
-        val useDateString = dateString + " 12:00"
-        val date = LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US))
+        val useDateString = "$dateString 12:00"
+        return LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US))
+    }
 
-        return date
+    private fun configureTransaction(transaction: TransactionEntity) {
+        val dialogView = requireDialog()
+        dialogView.findViewById<TextView>(R.id.transaction_type).text = transaction.transactionType
+        dialogView.findViewById<TextView>(R.id.transaction_date).text = transaction.transactionDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US))
+        dialogView.findViewById<TextView>(R.id.transaction_description).text = transaction.description
+        dialogView.findViewById<CheckBox>(R.id.transaction_isCredit).isChecked = transaction.isCredit
+        dialogView.findViewById<TextView>(R.id.transaction_amount).text = transaction.transactionAmount.toString()
+        dialogView.findViewById<CheckBox>(R.id.transaction_cleared).isChecked = transaction.cleared
     }
 }

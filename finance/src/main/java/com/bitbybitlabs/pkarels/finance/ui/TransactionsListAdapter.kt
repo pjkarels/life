@@ -5,12 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.pkarels.finance.R
+import com.bitbybitlabs.pkarels.finance.TransactionDialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import org.threeten.bp.format.DateTimeFormatter
 
-class TransactionsListAdapter(private val transactions: List<TransactionEntity>) : RecyclerView.Adapter<TransactionsListAdapter.ViewHolder>() {
+class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
+                              private val activity: AppCompatActivity)
+    : RecyclerView.Adapter<TransactionsListAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +32,11 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>)
         holder.transactionAmountView.text = item.transactionAmount.toString()
         holder.transactionDescriptionView.text = item.description
         holder.transactionIsClearedView.isChecked = item.cleared
+        holder.itemView.tag = item
+        holder.itemView.setOnClickListener { v ->
+            val transactionDialog = TransactionDialogFragment.newInstance((v.tag as TransactionEntity).id)
+            transactionDialog.show(activity.supportFragmentManager, TransactionDialogFragment::javaClass.name)
+        }
     }
 
 
