@@ -8,25 +8,25 @@ import org.threeten.bp.LocalDateTime
 @Entity(tableName = "transaction")
 data class TransactionEntity(
         @ColumnInfo(name = "transaction_date")
-        val transactionDate: LocalDateTime,
+        var transactionDate: LocalDateTime = LocalDateTime.now(),
 
         @ColumnInfo(name = "transaction_type", typeAffinity = ColumnInfo.TEXT)
-        val transactionType: String,
+        var transactionType: String = "",
 
         @ColumnInfo(name = "isCredit", typeAffinity = ColumnInfo.INTEGER)
-        val isCredit: Boolean = true,
+        var isCredit: Boolean = false,
 
         @ColumnInfo(name = "transaction_amount", typeAffinity = ColumnInfo.REAL)
-        val transactionAmount: Double,
+        var transactionAmount: Double = 0.0,
 
         @ColumnInfo(name = "transaction_description", typeAffinity = ColumnInfo.TEXT)
-        val description: String,
+        var description: String = "",
 
         @ColumnInfo(name = "transaction_cleared", typeAffinity = ColumnInfo.INTEGER)
-        val cleared: Boolean,
+        var cleared: Boolean = false,
 
         @ColumnInfo(name = "resulting_balance", typeAffinity = ColumnInfo.REAL)
-        val resultingBalance: Double,
+        var resultingBalance: Double = 0.0,
 
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")

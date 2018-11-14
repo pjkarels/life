@@ -41,7 +41,7 @@ class TransactionDialogFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(TransactionViewModel::class.java)
-        viewModel.transaction().observe(this, Observer {
+        viewModel.transactionData.observe(this, Observer {
             configureTransaction(it)
         })
 
@@ -59,7 +59,7 @@ class TransactionDialogFragment : DialogFragment() {
                 .setView(R.layout.fragment_transaction_dialog)
                 .setTitle("Add/Edit Transaction")
                 .setPositiveButton(android.R.string.ok) { dialog, which ->
-                    listener.onTransactionSaved(createTransaction())
+                    listener.onTransactionSaved(updateTransaction())
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, which ->
                     dialog.dismiss()
@@ -77,7 +77,12 @@ class TransactionDialogFragment : DialogFragment() {
         }
     }
 
-    private fun createTransaction(): TransactionEntity {
+    /**
+     * Updates the current (or new) transaction object from the input
+     */
+    private fun updateTransaction(): TransactionEntity {
+        val currentTransaction = viewModel.transactionData.value as TransactionEntity
+
         val transactionTypeView = dialog?.findViewById<EditText>(R.id.transaction_type)
         val transactionDateView = dialog?.findViewById<EditText>(R.id.transaction_date)
         val transactionDescriptionView = dialog?.findViewById<EditText>(R.id.transaction_description)
@@ -95,13 +100,15 @@ class TransactionDialogFragment : DialogFragment() {
 
         val transactionAmount = Util.stringToDouble(transactionAmountString.toString())
 
-        return TransactionEntity(parseDateString(transactionDate.toString()),
-                transactionType.toString(),
-                transactionCredit,
-                transactionAmount,
-                transactionDescription.toString(),
-                transactionCleared,
-                previousBalance)
+        currentTransaction.transactionType = transactionType.toString()
+        currentTransaction.transactionDate = parseDateString(transactionDate.toString())
+        currentTransaction.description = transactionDescription.toString()
+        currentTransaction.isCredit = transactionCredit
+        currentTransaction.transactionAmount = transactionAmount
+        currentTransaction.cleared = transactionCleared
+        currentTransaction.resultingBalance = previousBalance
+
+        return currentTransaction
     }
 
     private fun parseDateString(dateString: String): LocalDateTime {
