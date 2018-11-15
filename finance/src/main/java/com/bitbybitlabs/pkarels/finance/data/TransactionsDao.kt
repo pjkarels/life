@@ -19,7 +19,7 @@ interface TransactionsDao {
     fun deleteTransaction(transactionEntity: TransactionEntity)
 
     @Query("SELECT * FROM 'transaction' WHERE transaction_date < :dateTime")
-    fun getTransactions(dateTime: LocalDateTime = LocalDateTime.now()): Flowable<List<TransactionEntity>>
+    fun getTransactions(dateTime: LocalDateTime): Flowable<List<TransactionEntity>>
 
     @Query("SELECT * FROM `transaction` WHERE transaction_date BETWEEN :startDate AND :endDate")
     fun getTransactionsInRange(startDate: LocalDateTime, endDate: LocalDateTime): Flowable<List<TransactionEntity>>
