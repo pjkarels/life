@@ -54,7 +54,6 @@ class TransactionDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         return AlertDialog.Builder(requireContext())
                 .setView(R.layout.fragment_transaction_dialog)
                 .setTitle("Add/Edit Transaction")
@@ -91,18 +90,17 @@ class TransactionDialogFragment : DialogFragment() {
         val transactionClearedView = dialog?.findViewById<CheckBox>(R.id.transaction_cleared)
 
         // retrieve or initialize values to default
-        val transactionType = transactionTypeView?.text ?: ""
-        val transactionDate = transactionDateView?.text ?: ""
-        val transactionDescription = transactionDescriptionView?.text ?: ""
+        val transactionType = transactionTypeView?.text.toString()
+        val transactionDate = transactionDateView?.text.toString()
+        val transactionDescription = transactionDescriptionView?.text.toString()
         val transactionCredit = transactionCreditView?.isChecked ?: false
-        val transactionAmountString = transactionAmountView?.text ?: ""
+        val transactionAmountString = transactionAmountView?.text.toString()
+        val transactionAmount = Util.stringToDouble(transactionAmountString)
         val transactionCleared = transactionClearedView?.isChecked ?: false
 
-        val transactionAmount = Util.stringToDouble(transactionAmountString.toString())
-
-        currentTransaction.transactionType = transactionType.toString()
-        currentTransaction.transactionDate = parseDateString(transactionDate.toString())
-        currentTransaction.description = transactionDescription.toString()
+        currentTransaction.transactionType = transactionType
+        currentTransaction.transactionDate = parseDateString(transactionDate)
+        currentTransaction.description = transactionDescription
         currentTransaction.isCredit = transactionCredit
         currentTransaction.transactionAmount = transactionAmount
         currentTransaction.cleared = transactionCleared
@@ -112,7 +110,7 @@ class TransactionDialogFragment : DialogFragment() {
     }
 
     private fun parseDateString(dateString: String): LocalDateTime {
-        val useDateString = "$dateString 12:00"
+        val useDateString = "$dateString 12:01"
         return LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US))
     }
 
