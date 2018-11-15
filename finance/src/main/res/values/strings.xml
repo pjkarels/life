@@ -3,6 +3,7 @@
     <string name="label_finance_total_balance">Total Balance</string>
     <string name="label_finance_available_balance">Available Balance</string>
 
+    <string name="title_add_update_transaction">Add/Edit Transaction</string>
     <string name="hint_transaction_type">Type</string>
     <string name="hint_transaction_date">Transaction Date</string>
     <string name="hint_transaction_amount">Amount</string>

@@ -56,7 +56,7 @@ class TransactionDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
                 .setView(R.layout.fragment_transaction_dialog)
-                .setTitle("Add/Edit Transaction")
+                .setTitle(R.string.title_add_update_transaction)
                 .setPositiveButton(android.R.string.ok) { dialog, which ->
                     listener.onTransactionSaved(updateTransaction())
                 }
