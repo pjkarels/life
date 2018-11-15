@@ -43,7 +43,7 @@ class TransactionsFragment : Fragment() {
     private fun configureTransaction(transactions: List<TransactionEntity>) {
         val fab = contentView.findViewById<View>(R.id.fab)
         fab.setOnClickListener { view ->
-            TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0)
+            TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[transactions.size - 1].resultingBalance else 0.0)
                     .show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
         }
 
