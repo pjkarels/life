@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.R
 import com.bitbybitlabs.pkarels.finance.TransactionDialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
@@ -33,7 +34,7 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         if (!item.isCredit) {
             holder.transactionAmountView.setTextColor(activity.resources.getColor(android.R.color.holo_red_light))
         }
-        holder.transactionBalanceview.text = item.resultingBalance.toString()
+        holder.transactionBalanceview.text = Util.round(item.resultingBalance, 2)
         holder.transactionDescriptionView.text = item.description
         holder.transactionIsClearedView.isChecked = item.cleared
         holder.itemView.tag = item
