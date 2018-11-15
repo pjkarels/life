@@ -20,10 +20,34 @@ class Util {
         const val INTENT_BUNDLE_PARENT_NAME = "INTENT_BUNDLE_PARENT_NAME"
         const val ARGS_BUNDLE_TRANSACTION_ID = "ARGS_BUNDLE_TRANSACTION_ID"
 
+        /**
+         * "EEE, MMM d"
+         */
         const val DATE_PATTERN_DAY_DATE = "EEE, MMM d"
+        /**
+         * "h:mm a"
+         */
         const val DATE_PATTERN_HOUR_AM_PM = "h:mm a"
+        /**
+         * "MM/dd/yyyy"
+         */
+        const val DATE_PATTERN = "MM/dd/yyyy"
+        /**
+         * "MM/dd/yyyy HH:mm"
+         */
+        const val DEFAULT_DATE_ENTRY_PARSE_PATTERN = "MM/dd/yyyy HH:mm"
+        /**
+         * "00:01"
+         */
+        const val DEFAULT_TIME = "00:01"
 
+        /**
+         * "F"
+         */
         const val TEMP_UNIT_ABBR_FAHRENHEIT = "F"
+        /**
+         * "C"
+         */
         const val TEMP_UNIT_ABBR_CELCIUS = "C"
 
         fun provideRetrofit(client: OkHttpClient, baseUrl: String, gson: Gson): Retrofit {

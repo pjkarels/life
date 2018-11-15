@@ -110,14 +110,14 @@ class TransactionDialogFragment : DialogFragment() {
     }
 
     private fun parseDateString(dateString: String): LocalDateTime {
-        val useDateString = "$dateString 12:01"
-        return LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm", Locale.US))
+        val useDateString = "$dateString ${Util.DEFAULT_TIME}"
+        return LocalDateTime.parse(useDateString, DateTimeFormatter.ofPattern(Util.DEFAULT_DATE_ENTRY_PARSE_PATTERN, Locale.US))
     }
 
     private fun configureTransaction(transaction: TransactionEntity) {
         val dialogView = requireDialog()
         dialogView.findViewById<TextView>(R.id.transaction_type).text = transaction.transactionType
-        dialogView.findViewById<TextView>(R.id.transaction_date).text = transaction.transactionDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US))
+        dialogView.findViewById<TextView>(R.id.transaction_date).text = transaction.transactionDate.format(DateTimeFormatter.ofPattern(Util.DATE_PATTERN, Locale.US))
         dialogView.findViewById<TextView>(R.id.transaction_description).text = transaction.description
         dialogView.findViewById<CheckBox>(R.id.transaction_isCredit).isChecked = transaction.isCredit
         dialogView.findViewById<TextView>(R.id.transaction_amount).text = if (transaction.transactionAmount != null) transaction.transactionAmount.toString() else ""
