@@ -17,7 +17,7 @@ data class TransactionEntity(
         var isCredit: Boolean = false,
 
         @ColumnInfo(name = "transaction_amount", typeAffinity = ColumnInfo.REAL)
-        var transactionAmount: Double = 0.0,
+        var transactionAmount: Double? = null,
 
         @ColumnInfo(name = "transaction_description", typeAffinity = ColumnInfo.TEXT)
         var description: String = "",

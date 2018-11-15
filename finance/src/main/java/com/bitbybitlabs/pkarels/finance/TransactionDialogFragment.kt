@@ -120,7 +120,7 @@ class TransactionDialogFragment : DialogFragment() {
         dialogView.findViewById<TextView>(R.id.transaction_date).text = transaction.transactionDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US))
         dialogView.findViewById<TextView>(R.id.transaction_description).text = transaction.description
         dialogView.findViewById<CheckBox>(R.id.transaction_isCredit).isChecked = transaction.isCredit
-        dialogView.findViewById<TextView>(R.id.transaction_amount).text = transaction.transactionAmount.toString()
+        dialogView.findViewById<TextView>(R.id.transaction_amount).text = if (transaction.transactionAmount != null) transaction.transactionAmount.toString() else ""
         dialogView.findViewById<CheckBox>(R.id.transaction_cleared).isChecked = transaction.cleared
     }
 }
