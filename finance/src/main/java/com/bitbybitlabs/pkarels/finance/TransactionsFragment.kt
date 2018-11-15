@@ -37,14 +37,16 @@ class TransactionsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.fragment_transactions, container, false)
 
-        val fab = contentView.findViewById<View>(R.id.fab)
-        fab.setOnClickListener { view ->
-            TransactionDialogFragment.newInstance().show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
-        }
         return contentView
     }
 
     private fun configureTransaction(transactions: List<TransactionEntity>) {
+        val fab = contentView.findViewById<View>(R.id.fab)
+        fab.setOnClickListener { view ->
+            TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0)
+                    .show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
+        }
+
         val recyclerView = contentView.findViewById<RecyclerView>(R.id.transactions_recycler_view)
         recyclerView.adapter = TransactionsListAdapter(transactions, activity as AppCompatActivity)
     }

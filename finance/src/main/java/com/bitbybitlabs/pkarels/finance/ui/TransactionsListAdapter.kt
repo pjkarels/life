@@ -33,11 +33,13 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         if (!item.isCredit) {
             holder.transactionAmountView.setTextColor(activity.resources.getColor(android.R.color.holo_red_light))
         }
+        holder.transactionBalanceview.text = item.resultingBalance.toString()
         holder.transactionDescriptionView.text = item.description
         holder.transactionIsClearedView.isChecked = item.cleared
         holder.itemView.tag = item
         holder.itemView.setOnClickListener { v ->
-            val transactionDialog = TransactionDialogFragment.newInstance((v.tag as TransactionEntity).id)
+            val previousBalance = transactions[position - 1].resultingBalance
+            val transactionDialog = TransactionDialogFragment.newInstance(previousBalance, (v.tag as TransactionEntity).id)
             transactionDialog.show(activity.supportFragmentManager, TransactionDialogFragment::javaClass.name)
         }
     }
@@ -47,6 +49,7 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         val transactionTypeView = view.findViewById<TextView>(R.id.item_transaction_type)
         val transactionDateView = view.findViewById<TextView>(R.id.item_transaction_date)
         val transactionAmountView = view.findViewById<TextView>(R.id.item_transaction_amount)
+        val transactionBalanceview = view.findViewById<TextView>(R.id.item_transaction_balance)
         val transactionDescriptionView = view.findViewById<TextView>(R.id.item_transaction_description)
         val transactionIsClearedView = view.findViewById<CheckBox>(R.id.item_transaction_cleared)
     }

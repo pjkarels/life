@@ -21,13 +21,14 @@ import java.util.*
 class TransactionDialogFragment : DialogFragment() {
 
     companion object {
-        fun newInstance(transactionId: Int? = null): TransactionDialogFragment {
+        fun newInstance(previousBalance: Double, transactionId: Int? = null): TransactionDialogFragment {
             val fragment = TransactionDialogFragment()
+            val args = Bundle()
+            args.putDouble(Util.ARGS_BUNDLE_PREVIOUS_BALANCE, previousBalance)
             if (transactionId != null) {
-                val args = Bundle()
                 args.putInt(Util.ARGS_BUNDLE_TRANSACTION_ID, transactionId)
-                fragment.arguments = args
             }
+            fragment.arguments = args
 
             return fragment
         }
@@ -35,7 +36,7 @@ class TransactionDialogFragment : DialogFragment() {
 
     private lateinit var viewModel: TransactionViewModel
     private lateinit var listener: TransactionSavedListener
-    private val previousBalance = 0.0
+    private var previousBalance = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +48,7 @@ class TransactionDialogFragment : DialogFragment() {
 
         // retrieve transaction if an id is passed for an edit
         val myArguments = arguments
+        previousBalance = myArguments?.getDouble(Util.ARGS_BUNDLE_PREVIOUS_BALANCE) ?: 0.0
         if (myArguments != null && myArguments.containsKey(Util.ARGS_BUNDLE_TRANSACTION_ID)) {
             viewModel.fetchTransaction(myArguments.getInt(Util.ARGS_BUNDLE_TRANSACTION_ID))
         }
@@ -104,7 +106,11 @@ class TransactionDialogFragment : DialogFragment() {
         currentTransaction.isCredit = transactionCredit
         currentTransaction.transactionAmount = transactionAmount
         currentTransaction.cleared = transactionCleared
-        currentTransaction.resultingBalance = previousBalance
+        currentTransaction.resultingBalance = if (transactionCredit) {
+            previousBalance + transactionAmount
+        } else {
+            previousBalance - transactionAmount
+        }
 
         return currentTransaction
     }

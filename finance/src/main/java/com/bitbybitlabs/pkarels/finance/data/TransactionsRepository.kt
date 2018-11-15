@@ -22,4 +22,6 @@ class TransactionsRepository(application: Application) {
     }
 
     fun getTransaction(id: Int) = transactionsDao.getTransaction(id)
+
+    fun getPreviousTransaction(id: Int) = transactionsDao.getPreviousTransaction(id)
 }

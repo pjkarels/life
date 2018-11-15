@@ -19,6 +19,7 @@ class Util {
 
         const val INTENT_BUNDLE_PARENT_NAME = "INTENT_BUNDLE_PARENT_NAME"
         const val ARGS_BUNDLE_TRANSACTION_ID = "ARGS_BUNDLE_TRANSACTION_ID"
+        const val ARGS_BUNDLE_PREVIOUS_BALANCE = "ARGS_BUNDLE_PREVIOUS_BALANCE"
 
         /**
          * "EEE, MMM d"

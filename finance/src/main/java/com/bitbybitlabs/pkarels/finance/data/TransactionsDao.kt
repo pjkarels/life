@@ -29,4 +29,8 @@ interface TransactionsDao {
 
     @Query("SELECT * FROM `transaction` WHERE id = :id")
     fun getTransaction(id: Int): Single<TransactionEntity>
+
+    @Query("SELECT * FROM `transaction` WHERE id < :id LIMIT 1")
+    fun getPreviousTransaction(id: Int): Single<TransactionEntity>
+
 }

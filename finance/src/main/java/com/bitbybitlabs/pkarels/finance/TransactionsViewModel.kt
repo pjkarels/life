@@ -14,6 +14,9 @@ import timber.log.Timber
 class TransactionsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TransactionsRepository(application)
 
+    private val previousBalance = MutableLiveData<Double>()
+    fun previousBalance() = previousBalance as LiveData<Double>
+
     private val transactions = MutableLiveData<List<TransactionEntity>>()
     fun transactions(): LiveData<List<TransactionEntity>> = transactions
 
@@ -45,12 +48,23 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
                 .subscribe({}, Timber::e)
     }
 
+    private fun getPreviousTransaction(currentId: Int) {
+        repository.getPreviousTransaction(currentId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { t -> t.printStackTrace() }
+                .doOnSuccess {
+                    onLoadPreviousTransaction(it)
+                }
+                .subscribe()
+    }
+
     private fun onLoadFromDb(transactionsList: List<TransactionEntity>) {
         transactions.value = transactionsList
     }
 
-    private fun onSuccessfulAdd() {
-
+    private fun onLoadPreviousTransaction(transaction: TransactionEntity) {
+        previousBalance.value = transaction.resultingBalance
     }
 
     private fun onError() {
