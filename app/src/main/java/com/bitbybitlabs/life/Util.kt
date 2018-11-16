@@ -75,17 +75,16 @@ class Util {
 
             val patternAsStringBuilder = StringBuilder()
             for (i in 1..charsBeforeSeparator) {
-                patternAsStringBuilder.append(decimalFormat.decimalFormatSymbols.digit)
+                patternAsStringBuilder.append(decimalFormat.decimalFormatSymbols.zeroDigit)
             }
             patternAsStringBuilder.append(decimalSeparator)
             for (i in 1..spaces) {
-                patternAsStringBuilder.append(decimalFormat.decimalFormatSymbols.digit)
+                patternAsStringBuilder.append(decimalFormat.decimalFormatSymbols.zeroDigit)
             }
 
             decimalFormat.roundingMode = RoundingMode.HALF_UP
             val pattern = patternAsStringBuilder.toString()
             decimalFormat.applyPattern(pattern)
-
             return decimalFormat.format(input)
         }
 
