@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionsListAdapter
 
@@ -41,6 +43,10 @@ class TransactionsFragment : Fragment() {
     }
 
     private fun configureTransaction(transactions: List<TransactionEntity>) {
+        val totalBalanceView = contentView.findViewById<TextView>(R.id.total_balance_text)
+        val availableBalanceView = contentView.findViewById<TextView>(R.id.available_balance_text)
+        totalBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2)
+        availableBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2)
         val fab = contentView.findViewById<View>(R.id.fab)
         fab.setOnClickListener { view ->
             TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0)

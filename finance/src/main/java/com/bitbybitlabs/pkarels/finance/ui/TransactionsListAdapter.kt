@@ -30,7 +30,7 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         val item = transactions[position]
         holder.transactionTypeView.text = item.transactionType
         holder.transactionDateView.text = item.transactionDate.format(DateTimeFormatter.ofPattern(Util.DATE_PATTERN))
-        holder.transactionAmountView.text = item.transactionAmount.toString()
+        holder.transactionAmountView.text = Util.round(item.transactionAmount, 2)
         if (!item.isCredit) {
             holder.transactionAmountView.setTextColor(activity.resources.getColor(android.R.color.holo_red_light))
         }
