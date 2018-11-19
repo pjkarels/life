@@ -66,14 +66,14 @@ class Util {
             return gson.create()
         }
 
-        fun round(input: Double, spaces: Int): String {
+        fun round(input: Double, spaces: Int, addCurrency: Boolean = false): String {
             val inputAsString = input.toString()
             val decimalFormat = DecimalFormat()
             val decimalSeparator = decimalFormat.decimalFormatSymbols.decimalSeparator
 
             val charsBeforeSeparator = inputAsString.indexOf(decimalSeparator)
 
-            val patternAsStringBuilder = StringBuilder()
+            val patternAsStringBuilder = StringBuilder(if (addCurrency) decimalFormat.decimalFormatSymbols.currencySymbol else "")
             for (i in 1..charsBeforeSeparator) {
                 patternAsStringBuilder.append(decimalFormat.decimalFormatSymbols.zeroDigit)
             }

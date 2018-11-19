@@ -30,21 +30,20 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         val item = transactions[position]
         holder.transactionTypeView.text = item.transactionType
         holder.transactionDateView.text = item.transactionDate.format(DateTimeFormatter.ofPattern(Util.DATE_PATTERN))
-        holder.transactionAmountView.text = Util.round(item.transactionAmount, 2)
+        holder.transactionAmountView.text = Util.round(item.transactionAmount, 2, true)
         if (!item.isCredit) {
             holder.transactionAmountView.setTextColor(activity.resources.getColor(android.R.color.holo_red_light))
         }
-        holder.transactionBalanceview.text = Util.round(item.resultingBalance, 2)
+        holder.transactionBalanceview.text = Util.round(item.resultingBalance, 2, true)
         holder.transactionDescriptionView.text = item.description
         holder.transactionIsClearedView.isChecked = item.cleared
         holder.itemView.tag = item
         holder.itemView.setOnClickListener { v ->
-            val previousBalance = transactions[position + 1].resultingBalance
+            val previousBalance = if (position == transactions.size - 1) 0.0 else transactions[position + 1].resultingBalance
             val transactionDialog = TransactionDialogFragment.newInstance(previousBalance, (v.tag as TransactionEntity).id)
             transactionDialog.show(activity.supportFragmentManager, TransactionDialogFragment::javaClass.name)
         }
     }
-
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val transactionTypeView = view.findViewById<TextView>(R.id.item_transaction_type)

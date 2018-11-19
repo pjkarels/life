@@ -45,8 +45,8 @@ class TransactionsFragment : Fragment() {
     private fun configureTransaction(transactions: List<TransactionEntity>) {
         val totalBalanceView = contentView.findViewById<TextView>(R.id.total_balance_text)
         val availableBalanceView = contentView.findViewById<TextView>(R.id.available_balance_text)
-        totalBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2)
-        availableBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2)
+        totalBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2, true)
+        availableBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2, true)
         val fab = contentView.findViewById<View>(R.id.fab)
         fab.setOnClickListener { view ->
             TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0)
