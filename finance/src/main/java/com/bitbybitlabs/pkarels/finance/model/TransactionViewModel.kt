@@ -17,7 +17,6 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         transactionData.value = TransactionEntity()
     }
 
-
     fun fetchTransaction(id: Int) {
         repository.getTransaction(id)
                 .subscribeOn(Schedulers.io())

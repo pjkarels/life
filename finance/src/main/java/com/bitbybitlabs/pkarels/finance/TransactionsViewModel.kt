@@ -38,7 +38,6 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
             repository.saveOrUpdateTransaction(transaction)
         }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, Timber::e)
     }
 
@@ -47,7 +46,7 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
             repository.deleteTransaction(transaction)
         }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, Timber::e)
     }
 

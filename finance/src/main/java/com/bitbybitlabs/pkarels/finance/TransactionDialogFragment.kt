@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.model.TransactionViewModel
-import com.bitbybitlabs.pkarels.finance.ui.TransactionSavedListener
+import com.bitbybitlabs.pkarels.finance.ui.TransactionModifiedListener
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
@@ -34,8 +34,9 @@ class TransactionDialogFragment : DialogFragment() {
         }
     }
 
+    private var transactionId: Int? = null
     private lateinit var viewModel: TransactionViewModel
-    private lateinit var listener: TransactionSavedListener
+    private lateinit var listener: TransactionModifiedListener
     private var previousBalance = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +51,9 @@ class TransactionDialogFragment : DialogFragment() {
         val myArguments = arguments
         previousBalance = myArguments?.getDouble(Util.ARGS_BUNDLE_PREVIOUS_BALANCE) ?: 0.0
         if (myArguments != null && myArguments.containsKey(Util.ARGS_BUNDLE_TRANSACTION_ID)) {
-            viewModel.fetchTransaction(myArguments.getInt(Util.ARGS_BUNDLE_TRANSACTION_ID))
+            val transactionId = myArguments.getInt(Util.ARGS_BUNDLE_TRANSACTION_ID)
+            this.transactionId = transactionId
+            viewModel.fetchTransaction(transactionId)
         }
 
     }
@@ -65,16 +68,20 @@ class TransactionDialogFragment : DialogFragment() {
                 .setNegativeButton(android.R.string.cancel) { dialog, which ->
                     dialog.dismiss()
                 }
+                .setNeutralButton(if (transactionId != null) com.bitbybitlabs.life.R.string.action_delete else com.bitbybitlabs.life.R.string.empty_string) { dialog, which ->
+                    val currentTransaction = viewModel.transactionData.value as TransactionEntity
+                    listener.onTransactionDeleted(currentTransaction)
+                }
                 .create()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is TransactionSavedListener) {
+        if (context is TransactionModifiedListener) {
             listener = context
         } else {
-            throw ClassCastException(context.javaClass.name + "does not implement" + TransactionSavedListener::class.java.simpleName)
+            throw ClassCastException(context.javaClass.name + "does not implement" + TransactionModifiedListener::class.java.simpleName)
         }
     }
 

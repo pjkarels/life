@@ -60,4 +60,8 @@ class TransactionsFragment : Fragment() {
     fun saveTransaction(transaction: TransactionEntity) {
         viewModel.addOrUpdateTransaction(transaction)
     }
+
+    fun deleteTransaction(transaction: TransactionEntity) {
+        viewModel.deleteTransaction(transaction)
+    }
 }

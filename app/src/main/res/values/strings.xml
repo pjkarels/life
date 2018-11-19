@@ -17,6 +17,9 @@
     <string name="finding_location">Finding Location&#8230;</string>
     <string name="location_display">%s, %s</string>
 
+    <string name="action_delete">Delete</string>
+    <string name="empty_string">""</string>
+
     <!-- Strings related to Settings -->
     <string-array name="list_pref_units">
         <item>Fahrenheit</item>
