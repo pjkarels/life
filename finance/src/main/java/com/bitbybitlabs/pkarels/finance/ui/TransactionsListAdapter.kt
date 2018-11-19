@@ -13,10 +13,11 @@ import com.bitbybitlabs.pkarels.finance.TransactionDialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import org.threeten.bp.format.DateTimeFormatter
 
+private const val ZERO_BALANCE = 0.00
+
 class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
                               private val activity: AppCompatActivity)
     : RecyclerView.Adapter<TransactionsListAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_transaction_view, parent, false))
@@ -39,7 +40,7 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         holder.transactionIsClearedView.isChecked = item.cleared
         holder.itemView.tag = item
         holder.itemView.setOnClickListener { v ->
-            val previousBalance = if (position == transactions.size - 1) 0.0 else transactions[position + 1].resultingBalance
+            val previousBalance = if (position == transactions.size - 1) ZERO_BALANCE else transactions[position + 1].resultingBalance
             val transactionDialog = TransactionDialogFragment.newInstance(previousBalance, (v.tag as TransactionEntity).id)
             transactionDialog.show(activity.supportFragmentManager, TransactionDialogFragment::javaClass.name)
         }

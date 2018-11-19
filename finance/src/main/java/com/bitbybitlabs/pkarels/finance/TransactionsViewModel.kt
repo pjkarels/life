@@ -11,6 +11,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
+fun TransactionEntity.amountString(): String {
+    return if (transactionAmount.equals(Double.NaN)) "" else transactionAmount.toString()
+}
+
 class TransactionsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TransactionsRepository(application)
 
@@ -26,8 +30,7 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError { t -> t.printStackTrace() }
                 .doOnNext { onLoadFromDb(it) }
-                .subscribe(
-                )
+                .subscribe()
     }
 
     fun addOrUpdateTransaction(transaction: TransactionEntity) {
