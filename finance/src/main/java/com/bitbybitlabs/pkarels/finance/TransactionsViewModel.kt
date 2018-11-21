@@ -18,8 +18,7 @@ fun TransactionEntity.amountString(): String {
 class TransactionsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TransactionsRepository(application)
 
-    private val previousBalance = MutableLiveData<Double>()
-    fun previousBalance() = previousBalance as LiveData<Double>
+    private var previousBalance = Double.NaN
 
     private val transactions = MutableLiveData<List<TransactionEntity>>()
     fun transactions(): LiveData<List<TransactionEntity>> = transactions
@@ -34,42 +33,52 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun addOrUpdateTransaction(transaction: TransactionEntity) {
+        previousBalance = transaction.previousBalance
         Single.fromCallable {
             repository.saveOrUpdateTransaction(transaction)
+            updateBalances(transaction)
         }
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, Timber::e)
     }
 
     fun deleteTransaction(transaction: TransactionEntity) {
+        previousBalance = transaction.previousBalance
         Single.fromCallable {
             repository.deleteTransaction(transaction)
+            updateBalances(transaction)
         }
                 .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, Timber::e)
-    }
-
-    private fun getPreviousTransaction(currentId: Int) {
-        repository.getPreviousTransaction(currentId)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError { t -> t.printStackTrace() }
-                .doOnSuccess {
-                    onLoadPreviousTransaction(it)
-                }
-                .subscribe()
+                .subscribe({}, Timber::e)
     }
 
     private fun onLoadFromDb(transactionsList: List<TransactionEntity>) {
         transactions.value = transactionsList
     }
 
-    private fun onLoadPreviousTransaction(transaction: TransactionEntity) {
-        previousBalance.value = transaction.resultingBalance
-    }
-
     private fun onError() {
 
+    }
+
+    private fun updateBalances(currentTransaction: TransactionEntity) {
+        val transactionsList = transactions.value as MutableList<TransactionEntity>
+        val stopPosition = transactionsList.indexOf(transactionsList.find { element -> element.id == currentTransaction.id })
+        transactionsList[stopPosition] = currentTransaction
+        var previousResultingBalance = previousBalance
+        for (position in stopPosition downTo (0)) {
+            val transaction = transactionsList[position]
+            transaction.previousBalance = previousResultingBalance
+            transaction.resultingBalance =
+                    if (transaction.isCredit) {
+                        previousResultingBalance + transaction.transactionAmount
+                    } else {
+                        previousResultingBalance - transaction.transactionAmount
+                    }
+            transactionsList[position] = transaction
+            previousResultingBalance = transaction.resultingBalance
+            repository.saveOrUpdateTransaction(transaction)
+        }
     }
 }

@@ -28,7 +28,9 @@ data class TransactionEntity(
         @ColumnInfo(name = "resulting_balance", typeAffinity = ColumnInfo.REAL)
         var resultingBalance: Double = 0.0,
 
+        @ColumnInfo(name = "previous_balance", typeAffinity = ColumnInfo.REAL)
+        var previousBalance: Double = 0.0,
+
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
         val id: Int = 0
 )

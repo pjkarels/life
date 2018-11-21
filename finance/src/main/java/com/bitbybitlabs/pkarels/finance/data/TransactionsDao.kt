@@ -25,12 +25,12 @@ interface TransactionsDao {
     fun getTransactionsInRange(startDate: LocalDateTime, endDate: LocalDateTime): Flowable<List<TransactionEntity>>
 
     @Query("SELECT * FROM `transaction` WHERE transaction_date < :transactionDate LIMIT 1")
-    fun getPreviousTransaction(transactionDate: LocalDateTime): Flowable<TransactionEntity>
+    fun getMoreRecentTransactions(transactionDate: LocalDateTime): Flowable<TransactionEntity>
 
     @Query("SELECT * FROM `transaction` WHERE id = :id")
     fun getTransaction(id: Int): Single<TransactionEntity>
 
-    @Query("SELECT * FROM `transaction` WHERE id < :id LIMIT 1")
-    fun getPreviousTransaction(id: Int): Single<TransactionEntity>
+    @Query("SELECT * FROM `transaction` WHERE id > :id ORDER BY id ASC")
+    fun getMoreRecentTransactions(id: Int): Flowable<List<TransactionEntity>>
 
 }

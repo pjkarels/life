@@ -113,6 +113,7 @@ class TransactionDialogFragment : DialogFragment() {
         currentTransaction.isCredit = transactionCredit
         currentTransaction.transactionAmount = transactionAmount
         currentTransaction.cleared = transactionCleared
+        currentTransaction.previousBalance = previousBalance
         currentTransaction.resultingBalance = if (transactionCredit) {
             previousBalance + transactionAmount
         } else {

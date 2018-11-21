@@ -13,6 +13,8 @@ class TransactionsRepository(application: Application) {
 
     fun getTransactions(startDate: LocalDateTime, endDate: LocalDateTime) = transactionsDao.getTransactionsInRange(startDate, endDate)
 
+    fun getMoreRecentTransactions(id: Int) = transactionsDao.getMoreRecentTransactions(id)
+
     fun saveOrUpdateTransaction(transaction: TransactionEntity) {
         transactionsDao.upsertTransaction(transaction)
     }
@@ -22,6 +24,4 @@ class TransactionsRepository(application: Application) {
     }
 
     fun getTransaction(id: Int) = transactionsDao.getTransaction(id)
-
-    fun getPreviousTransaction(id: Int) = transactionsDao.getPreviousTransaction(id)
 }
