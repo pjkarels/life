@@ -46,9 +46,20 @@ class TransactionsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_add_transaction) {
-            addNewTransaction()
-            return true
+        when (item.itemId) {
+            R.id.action_add_transaction -> {
+                addNewTransaction()
+                return true
+            }
+            R.id.action_search_transactions -> {
+                val searchBar = contentView.findViewById<View>(R.id.transaction_search_bar)
+                if (searchBar.visibility == View.VISIBLE) {
+                    searchBar.visibility = View.GONE
+                } else {
+                    searchBar.visibility = View.VISIBLE
+                }
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -71,7 +82,7 @@ class TransactionsFragment : Fragment() {
         viewModel.deleteTransaction(transaction)
     }
 
-    fun addNewTransaction() {
+    private fun addNewTransaction() {
         viewModel.transactions().value?.let {
             TransactionDialogFragment.newInstance(if (it.isNotEmpty()) it[0].resultingBalance else 0.0)
                     .show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)

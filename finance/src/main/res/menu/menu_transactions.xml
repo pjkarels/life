@@ -8,4 +8,10 @@
         android:title="@string/action_add_transaction"
         android:icon="@android:drawable/ic_input_add"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search_transactions"
+        android:orderInCategory="90"
+        android:title="@android:string/search_go"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
 </menu>
