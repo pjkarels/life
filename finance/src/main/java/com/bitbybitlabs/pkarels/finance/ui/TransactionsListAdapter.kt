@@ -40,7 +40,7 @@ class TransactionsListAdapter(private val transactions: List<TransactionEntity>,
         holder.transactionIsClearedView.isChecked = item.cleared
         holder.itemView.tag = item
         holder.itemView.setOnClickListener { v ->
-            val previousBalance = if (position == transactions.size - 1) ZERO_BALANCE else transactions[position + 1].resultingBalance
+            val previousBalance = (v.tag as TransactionEntity).previousBalance
             val transactionDialog = TransactionDialogFragment.newInstance(previousBalance, (v.tag as TransactionEntity).id)
             transactionDialog.show(activity.supportFragmentManager, TransactionDialogFragment::javaClass.name)
         }

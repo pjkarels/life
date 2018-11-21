@@ -2,6 +2,7 @@ package com.bitbybitlabs.pkarels.finance
 
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,7 +14,7 @@ import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionsListAdapter
 
 
-class TransactionsFragment : Fragment() {
+class TransactionsFragment : Fragment(), SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     private lateinit var viewModel: TransactionsViewModel
     private lateinit var contentView: View
@@ -37,7 +38,9 @@ class TransactionsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.fragment_transactions, container, false)
-
+        val searchBar = contentView.findViewById<SearchView>(R.id.transaction_search_bar)
+        searchBar.setOnQueryTextListener(this)
+        searchBar.setOnCloseListener(this)
         return contentView
     }
 
@@ -58,6 +61,7 @@ class TransactionsFragment : Fragment() {
                 } else {
                     searchBar.visibility = View.VISIBLE
                 }
+
                 return true
             }
         }
@@ -80,6 +84,29 @@ class TransactionsFragment : Fragment() {
 
     fun deleteTransaction(transaction: TransactionEntity) {
         viewModel.deleteTransaction(transaction)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null && query.isNotEmpty()) {
+            viewModel.searchTransactions(query)
+        }
+
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        val searchBar = contentView.findViewById<SearchView>(R.id.transaction_search_bar)
+        searchBar.isSubmitButtonEnabled = newText != null && newText.isNotEmpty()
+
+        return true
+    }
+
+    override fun onClose(): Boolean {
+        viewModel.cancelSearch()
+        val searchBar = contentView.findViewById<SearchView>(R.id.transaction_search_bar)
+        searchBar.visibility = View.GONE
+
+        return false
     }
 
     private fun addNewTransaction() {

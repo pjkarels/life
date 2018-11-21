@@ -23,6 +23,8 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
     private val transactions = MutableLiveData<List<TransactionEntity>>()
     fun transactions(): LiveData<List<TransactionEntity>> = transactions
 
+    private lateinit var fullTransactionsList: List<TransactionEntity>
+
     fun getTransactions() {
         repository.getTransactions()
                 .subscribeOn(Schedulers.newThread())
@@ -54,7 +56,19 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
                 .subscribe({}, Timber::e)
     }
 
+    fun searchTransactions(query: String) {
+        val currentTransactions = transactions.value as List<TransactionEntity>
+        val filteredTransactions = currentTransactions.filter { item -> item.description.contains(query) }
+
+        transactions.value = filteredTransactions
+    }
+
+    fun cancelSearch() {
+        transactions.value = fullTransactionsList
+    }
+
     private fun onLoadFromDb(transactionsList: List<TransactionEntity>) {
+        fullTransactionsList = transactionsList
         transactions.value = transactionsList
     }
 
@@ -63,7 +77,7 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun updateBalances(currentTransaction: TransactionEntity) {
-        val transactionsList = transactions.value as MutableList<TransactionEntity>
+        val transactionsList = fullTransactionsList as MutableList<TransactionEntity>
         val stopPosition = transactionsList.indexOf(transactionsList.find { element -> element.id == currentTransaction.id })
         transactionsList[stopPosition] = currentTransaction
         var previousResultingBalance = previousBalance
