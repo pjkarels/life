@@ -1,9 +1,7 @@
 package com.bitbybitlabs.pkarels.finance
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -22,6 +20,7 @@ class TransactionsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
         viewModel = ViewModelProviders.of(this).get(TransactionsViewModel::class.java)
         viewModel.transactions().observe(this, Observer {
@@ -42,16 +41,23 @@ class TransactionsFragment : Fragment() {
         return contentView
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_transactions, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_add_transaction) {
+            addNewTransaction()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun configureTransaction(transactions: List<TransactionEntity>) {
         val totalBalanceView = contentView.findViewById<TextView>(R.id.total_balance_text)
         val availableBalanceView = contentView.findViewById<TextView>(R.id.available_balance_text)
         totalBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2, true)
         availableBalanceView.text = Util.round(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0, 2, true)
-        val fab = contentView.findViewById<View>(R.id.fab)
-        fab.setOnClickListener { view ->
-            TransactionDialogFragment.newInstance(if (transactions.isNotEmpty()) transactions[0].resultingBalance else 0.0)
-                    .show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
-        }
 
         val recyclerView = contentView.findViewById<RecyclerView>(R.id.transactions_recycler_view)
         recyclerView.adapter = TransactionsListAdapter(transactions, activity as AppCompatActivity)
@@ -63,5 +69,12 @@ class TransactionsFragment : Fragment() {
 
     fun deleteTransaction(transaction: TransactionEntity) {
         viewModel.deleteTransaction(transaction)
+    }
+
+    fun addNewTransaction() {
+        viewModel.transactions().value?.let {
+            TransactionDialogFragment.newInstance(if (it.isNotEmpty()) it[0].resultingBalance else 0.0)
+                    .show(requireFragmentManager(), TransactionDialogFragment::javaClass.name)
+        }
     }
 }
