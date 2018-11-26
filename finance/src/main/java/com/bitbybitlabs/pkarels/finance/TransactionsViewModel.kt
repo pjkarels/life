@@ -48,12 +48,14 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
     fun deleteTransaction(transaction: TransactionEntity) {
         previousBalance = transaction.previousBalance
         Single.fromCallable {
-            repository.deleteTransaction(transaction)
-            updateBalances(transaction)
+            val deletedIndex = fullTransactionsList.indexOf(fullTransactionsList.find { element -> element.id == transaction.id })
+            // use previous transactions to mark where to begin updating balances
+            val previousTransaction = fullTransactionsList[deletedIndex - 1]
+            (fullTransactionsList as MutableList).removeAt(deletedIndex)
+            updateBalances(previousTransaction)
         }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, Timber::e)
+                .subscribe({ getTransactions() }, Timber::e)
     }
 
     fun searchTransactions(query: String) {
@@ -69,7 +71,7 @@ class TransactionsViewModel(application: Application) : AndroidViewModel(applica
 
     private fun onLoadFromDb(transactionsList: List<TransactionEntity>) {
         fullTransactionsList = transactionsList
-        transactions.value = transactionsList
+        transactions.value = fullTransactionsList
     }
 
     private fun onError() {

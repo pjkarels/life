@@ -1,7 +1,6 @@
 package com.bitbybitlabs.pkarels.finance.data
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
@@ -15,8 +14,8 @@ interface TransactionsDao {
     @Insert(onConflict = REPLACE)
     fun upsertTransaction(transactionEntity: TransactionEntity)
 
-    @Delete
-    fun deleteTransaction(transactionEntity: TransactionEntity)
+    @Query("DELETE FROM `transaction` WHERE id = :id")
+    fun deleteTransaction(id: Int): Int
 
     @Query("SELECT * FROM 'transaction' WHERE transaction_date < :dateTime ORDER BY id DESC")
     fun getTransactions(dateTime: LocalDateTime): Flowable<List<TransactionEntity>>

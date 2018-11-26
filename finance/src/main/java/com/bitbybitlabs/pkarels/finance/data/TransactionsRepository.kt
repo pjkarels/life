@@ -19,8 +19,8 @@ class TransactionsRepository(application: Application) {
         transactionsDao.upsertTransaction(transaction)
     }
 
-    fun deleteTransaction(transaction: TransactionEntity) {
-        transactionsDao.deleteTransaction(transaction)
+    fun deleteTransaction(id: Int): Int {
+        return transactionsDao.deleteTransaction(id)
     }
 
     fun getTransaction(id: Int) = transactionsDao.getTransaction(id)
