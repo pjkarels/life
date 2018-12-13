@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.bitbybitlabs.life.BaseSplitActivity
 import com.bitbybitlabs.life.Util
-import com.bitbybitlabs.life.ui.SettingsActivity
+import com.bitbybitlabs.life.installed.ui.SettingsActivity
 import com.bitbybitlabs.weather.R
 
 class WeatherActivity : BaseSplitActivity(), WeatherErrorDialog.OnPositiveButtonClickedListener {

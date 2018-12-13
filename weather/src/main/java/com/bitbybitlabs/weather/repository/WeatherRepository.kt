@@ -2,10 +2,10 @@ package com.bitbybitlabs.weather.repository
 
 import android.app.Application
 import android.graphics.BitmapFactory
-import com.bitbybitlabs.life.LifeApplication
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.life.ZipCodeService
+import com.bitbybitlabs.life.installed.LifeApplication
 import com.bitbybitlabs.weather.data.IconLoadedListener
 import com.bitbybitlabs.weather.data.IconService
 import com.bitbybitlabs.weather.data.WeatherDatabase

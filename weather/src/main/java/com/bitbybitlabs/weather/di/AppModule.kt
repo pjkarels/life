@@ -1,6 +1,6 @@
 package com.bitbybitlabs.weather.di
 
-import com.bitbybitlabs.life.LifeApplication
+import com.bitbybitlabs.life.installed.LifeApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

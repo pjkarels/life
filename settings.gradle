@@ -1,1 +1,1 @@
-include ':app', ':weather', ':finance'
+include ':base', ':weather', ':finance', ':instantapp', ':installed', ':financelibrary'

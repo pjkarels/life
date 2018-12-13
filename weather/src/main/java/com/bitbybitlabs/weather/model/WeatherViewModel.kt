@@ -5,9 +5,9 @@ import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bitbybitlabs.life.LifeApplication
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.ZipCodeService
+import com.bitbybitlabs.life.installed.LifeApplication
 import com.bitbybitlabs.weather.data.IconLoadedListener
 import com.bitbybitlabs.weather.di.AppModule
 import com.bitbybitlabs.weather.di.DaggerWeatherComponent
