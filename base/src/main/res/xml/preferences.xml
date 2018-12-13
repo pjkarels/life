@@ -1,0 +1,18 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.preference.EditTextPreference
+        android:hint="@string/pref_title_zip"
+        android:inputType="numberSigned"
+        android:key="pref_title_zip"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_zip" />
+
+    <androidx.preference.ListPreference
+        android:key="pref_title_units"
+        android:title="@string/pref_title_units"
+        android:dialogTitle="@string/pref_title_units"
+        android:entries="@array/list_pref_units"
+        android:entryValues="@array/list_pref_units"
+        android:defaultValue="@string/pref_units_default" />
+</androidx.preference.PreferenceScreen>
