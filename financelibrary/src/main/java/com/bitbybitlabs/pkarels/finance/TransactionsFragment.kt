@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.bitbybitlabs.finance.R
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionsListAdapter

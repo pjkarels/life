@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">My Life</string>
+    <string name="title_weather">Weather</string>
+    <string name="title_activity_main">@string/app_name</string>
+    <string name="title_home">Home</string>
+    <string name="title_finance">Finance</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="weather_fragment_pleaseDownload_text">Please download Weather module</string>
+    <string name="download">Download</string>
+    <string name="downloading_module">Downloading Module&#8230;</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="nothing_to_display">---</string>
+    <string name="location_not_found">Sorry, your location was not found. Try again.</string>
+    <string name="finding_location">Finding Location&#8230;</string>
+    <string name="location_display">%s, %s</string>
+
+    <string name="action_delete">Delete</string>
+    <string name="empty_string">""</string>
+
+    <!-- Strings related to Settings -->
+    <string-array name="list_pref_units">
+        <item>Fahrenheit</item>
+        <item>Celsius</item>
+    </string-array>
+    <string name="pref_units_default">Fahrenheit</string>
+    <string name="pref_title_zip">Zip</string>
+    <string name="pref_title_units">Units</string>
+    <string name="title_activity_transactions">Transactions</string>
+</resources>

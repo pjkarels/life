@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 // Use AppCenter key
 ext.appCenterKey = project.hasProperty('com.appcenter.key') ?
@@ -13,8 +16,6 @@ ext.darkSkyApiKey = project.hasProperty('com.nerdery.umbrella.darkskyapikey') ?
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-
-
 
     defaultConfig {
         applicationId "com.bitbybitlabs.life.installed"
@@ -43,7 +44,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':base')
+    implementation project(':baselibrary')
     implementation project(':financelibrary')
 
     api 'com.microsoft.appcenter:appcenter-analytics:1.9.0'

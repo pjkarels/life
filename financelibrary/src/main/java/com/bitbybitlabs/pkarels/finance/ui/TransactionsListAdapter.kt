@@ -7,8 +7,8 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.bitbybitlabs.finance.R
 import com.bitbybitlabs.life.Util
+import com.bitbybitlabs.pkarels.finance.R
 import com.bitbybitlabs.pkarels.finance.TransactionDialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import org.threeten.bp.format.DateTimeFormatter

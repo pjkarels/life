@@ -20,7 +20,7 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':installed')
-    implementation project(':base')
+    implementation project(':baselibrary')
     implementation project(':financelibrary')
 
     kapt "android.arch.persistence.room:compiler:$ROOM_VERSION"

@@ -20,7 +20,7 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':installed')
-    implementation project(':base')
+    implementation project(':baselibrary')
 
     kapt 'androidx.room:room-compiler:2.1.0-alpha02'
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"

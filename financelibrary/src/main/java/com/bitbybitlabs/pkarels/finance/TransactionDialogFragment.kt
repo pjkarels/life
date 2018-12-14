@@ -10,8 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bitbybitlabs.finance.R
 import com.bitbybitlabs.life.Util
+import com.bitbybitlabs.pkarels.finance.R
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.model.TransactionViewModel
 import com.bitbybitlabs.pkarels.finance.ui.TransactionModifiedListener

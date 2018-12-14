@@ -8,8 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/finance" />
+            <option value="$PROJECT_DIR$/financeinstant" />
             <option value="$PROJECT_DIR$/financelibrary" />
             <option value="$PROJECT_DIR$/installed" />
             <option value="$PROJECT_DIR$/instantapp" />

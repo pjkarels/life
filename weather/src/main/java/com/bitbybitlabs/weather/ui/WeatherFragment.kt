@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.life.ZipCodeService
-import com.bitbybitlabs.life.installed.ui.SettingsActivity
+import com.bitbybitlabs.life.ui.SettingsActivity
 import com.bitbybitlabs.weather.R
 import com.bitbybitlabs.weather.model.DayForecasts
 import com.bitbybitlabs.weather.model.ForecastCondition
