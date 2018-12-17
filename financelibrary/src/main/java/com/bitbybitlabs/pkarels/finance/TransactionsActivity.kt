@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
 import com.bitbybitlabs.pkarels.finance.ui.TransactionModifiedListener
+import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.android.synthetic.main.activity_transactions.*
 
 class TransactionsActivity : AppCompatActivity(), TransactionModifiedListener {
@@ -21,6 +22,6 @@ class TransactionsActivity : AppCompatActivity(), TransactionModifiedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions)
         setSupportActionBar(toolbar)
+        AndroidThreeTen.init(this)
     }
-
 }

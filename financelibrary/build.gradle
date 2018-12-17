@@ -30,7 +30,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':baselibrary')
 
+    api "com.jakewharton.byteunits:byteunits:0.9.1"
+    api "com.jakewharton.threetenabp:threetenabp:1.1.0"
+    api "com.jakewharton.timber:timber:4.5.1"
+    api "com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0"
+
+    kapt 'androidx.room:room-compiler:2.1.0-alpha02'
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'

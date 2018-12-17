@@ -13,11 +13,7 @@
         <activity
             android:name=".TransactionsActivity"
             android:label="@string/title_activity_transactions"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:theme="@style/Life.TransactionsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

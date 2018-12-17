@@ -32,7 +32,9 @@
 
     <style name="Life.MainActivity" />
 
-    <style name="Life.TransactionsActivity" />
+    <style name="Life.TransactionsActivity" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+    </style>
 
     <style name="weather_card_title">
         <item name="android:textStyle">bold</item>
