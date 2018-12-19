@@ -34,9 +34,7 @@
 
     <style name="Life.SettingsActivity" />
 
-    <style name="Life.TransactionsActivity" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-    </style>
+    <style name="Life.TransactionsActivity" parent="@style/Life.NoActionBar" />
 
     <style name="weather_card_title">
         <item name="android:textStyle">bold</item>
@@ -87,6 +85,11 @@
         <item name="android:textViewStyle">@style/LightTextView</item>
         <item name="android:buttonStyle">@style/LightButton</item>
         <item name="android:divider">@android:color/darker_gray</item>
+    </style>
+
+    <style name="Life.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
