@@ -50,6 +50,7 @@
         </activity>
         <activity
             android:name="com.bitbybitlabs.life.ui.SettingsActivity"
+            android:theme="@style/Life.SettingsActivity"
             android:label="@string/title_activity_settings" />
     </application>
 </manifest>
