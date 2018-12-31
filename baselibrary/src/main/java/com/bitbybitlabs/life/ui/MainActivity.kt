@@ -2,7 +2,6 @@ package com.bitbybitlabs.life.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -165,10 +164,6 @@ class MainActivity : AppCompatActivity(), DownloadFragment.OnDownloadFragmentInt
 
         manager = SplitInstallManagerFactory.create(this)
         bottom_nav.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val zipPref = sharedPreferences.getString("pref_title_zip", "")
-        if (zipPref == "") run { startActivity(Intent(this, SettingsActivity::class.java)) }
     }
 
     override fun onResume() {
