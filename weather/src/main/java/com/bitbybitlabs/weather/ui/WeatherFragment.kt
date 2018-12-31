@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.life.TempUnit
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.life.ZipCodeService
+import com.bitbybitlabs.life.ui.ErrorDialog
 import com.bitbybitlabs.life.ui.SettingsActivity
 import com.bitbybitlabs.weather.R
 import com.bitbybitlabs.weather.model.DayForecasts
@@ -49,12 +50,6 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         })
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        val zipPref = sharedPreferences.getString("pref_title_zip", "")
-        if (zipPref == "") {
-            if (zipPref == "") {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-            }
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -66,8 +61,14 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
         super.onResume()
 
         val zipPref = sharedPreferences.getString("pref_title_zip", "")
-        val context = activity as AppCompatActivity
-        ZipCodeService.getLatLongByZip(context.applicationContext, zipPref, this)
+        if (zipPref == "") {
+            if (zipPref == "") {
+                startActivity(Intent(activity, SettingsActivity::class.java))
+            }
+        } else {
+            val context = activity as AppCompatActivity
+            ZipCodeService.getLatLongByZip(context.applicationContext, zipPref, this)
+        }
     }
 
     override fun onLocationFound(location: ZipCodeService.ZipLocation) {
@@ -78,7 +79,7 @@ class WeatherFragment : Fragment(), ZipCodeService.ZipLocationListener {
     }
 
     override fun onLocationNotFound() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ErrorDialog.newInstance("Zipcode not Found", "Please try entering another zipcode").show((activity as AppCompatActivity).supportFragmentManager, ErrorDialog::class.java.simpleName)
     }
 
     fun getWeather() {
