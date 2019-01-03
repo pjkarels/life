@@ -70,10 +70,10 @@ class TransactionDialogFragment : DialogFragment() {
                 .setNegativeButton(android.R.string.cancel) { dialog, which ->
                     dialog.dismiss()
                 }
-                .setNeutralButton(if (transactionId != null) RBase.string.action_delete else RBase.string.empty_string) { dialog, which ->
-                    val currentTransaction = viewModel.transactionData.value as TransactionEntity
-                    listener.onTransactionDeleted(currentTransaction)
-                }
+//                .setNeutralButton(if (transactionId != null) RBase.string.action_delete else RBase.string.empty_string) { dialog, which ->
+//                    val currentTransaction = viewModel.transactionData.value as TransactionEntity
+//                    listener.onTransactionDeleted(currentTransaction)
+//                }
                 .create()
     }
 
