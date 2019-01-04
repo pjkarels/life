@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android-extensions'
 // sky api key to this project
 ext.darkSkyApiKey = project.hasProperty('com.nerdery.umbrella.darkskyapikey') ?
         project.getProperty('com.nerdery.umbrella.darkskyapikey') :
-        System.getenv('DARK_SKY_API_KEY') ?: ''
+        System.getenv('API_KEY') ?: ''
 
 android {
     compileSdkVersion 28
