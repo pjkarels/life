@@ -60,7 +60,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':baselibrary')
-    implementation project(':financelibrary')
     api 'com.microsoft.appcenter:appcenter-analytics:1.9.0'
     api 'com.microsoft.appcenter:appcenter-crashes:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'

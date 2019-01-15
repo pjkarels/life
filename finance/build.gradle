@@ -20,7 +20,6 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':installed')
-    implementation project(':baselibrary')
     implementation project(':financelibrary')
 
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
