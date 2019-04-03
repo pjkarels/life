@@ -54,16 +54,5 @@
             android:theme="@style/Life.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
-        <provider
-            android:name=".installed.slice.MySliceProvider"
-            android:authorities="com.example.android.app"
-            android:exported="true"
-            android:grantUriPermissions="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.app.slice.category.SLICE" />
-            </intent-filter>
-        </provider>
-        <receiver android:name=".installed.receiver.MyBroadcastReceiver" />
     </application>
 </manifest>
