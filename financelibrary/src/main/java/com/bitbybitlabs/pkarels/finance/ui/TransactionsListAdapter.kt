@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.life.Util
-import com.bitbybitlabs.pkarels.finance.R
 import com.bitbybitlabs.pkarels.finance.TransactionDialogFragment
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
+import com.bitbybitlabs.pkarels.finance.library.R
 import org.threeten.bp.format.DateTimeFormatter
 
 private const val ZERO_BALANCE = 0.00

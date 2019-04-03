@@ -11,8 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bitbybitlabs.life.Util
-import com.bitbybitlabs.pkarels.finance.R
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
+import com.bitbybitlabs.pkarels.finance.library.R
 import com.bitbybitlabs.pkarels.finance.model.TransactionViewModel
 import com.bitbybitlabs.pkarels.finance.ui.TransactionModifiedListener
 import org.threeten.bp.LocalDateTime

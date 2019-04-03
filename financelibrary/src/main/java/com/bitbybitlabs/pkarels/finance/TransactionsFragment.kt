@@ -1,7 +1,12 @@
 package com.bitbybitlabs.pkarels.finance
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bitbybitlabs.life.Util
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
+import com.bitbybitlabs.pkarels.finance.library.R
 import com.bitbybitlabs.pkarels.finance.ui.TransactionsListAdapter
 
 

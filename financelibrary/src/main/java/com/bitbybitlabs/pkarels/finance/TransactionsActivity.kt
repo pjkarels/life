@@ -3,6 +3,7 @@ package com.bitbybitlabs.pkarels.finance
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bitbybitlabs.pkarels.finance.data.TransactionEntity
+import com.bitbybitlabs.pkarels.finance.library.R
 import com.bitbybitlabs.pkarels.finance.ui.TransactionModifiedListener
 import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.android.synthetic.main.activity_transactions.*
