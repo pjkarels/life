@@ -32,7 +32,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("bitbybitlabs.keystore")
+            storeFile file("bitbybitlabs")
             storePassword project.hasProperty('com.bitbybitlabs.keystorePwd') ?
                     project.getProperty('com.bitbybitlabs.keystorePwd') :
                     System.getenv('$BITRISEIO_ANDROID_KEYSTORE_PASSWORD') ?: ''
